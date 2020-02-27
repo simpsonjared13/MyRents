@@ -32,6 +32,19 @@ class Renter extends CI_Controller {
 		$this->load->view('register');
 		$this->load->view('templates/footer');
 	}
+	public function registerRenter()
+	{
+		$this->load->model('Registration_Model');
+		$result = $this->Registration_Model->registerRenter();
+		$this->load->view('templates/header');
+		echo "<p>";
+		foreach($result as $key => $value) {
+			echo $key. ": ". $value. " ";
+		}
+		echo "</p>";
+
+		$this->load->view('templates/footer');
+	}
 	public function home()
 	{
 		$this->load->view('home');
