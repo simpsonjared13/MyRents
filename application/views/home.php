@@ -2,6 +2,6 @@
 <head>
 </head>
 <body>
-	<p>Home Page</p>
+	<p>Home Pag</p>
 </body>
 </html>
