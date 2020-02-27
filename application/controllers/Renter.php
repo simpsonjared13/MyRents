@@ -32,6 +32,6 @@ class Renter extends CI_Controller {
 	}
 	public function home()
 	{
-		$this->load->view('home');
+		$this->load->view('HomePage');
 	}
 }
