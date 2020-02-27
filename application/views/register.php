@@ -5,7 +5,7 @@
 		<input type="text" name="username" placeholder="username" required><br>
 		<input type="text" name="email" placeholder="email" required><br>
 		<!-- <input type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="203-000-0000" required><br>	 -->
-		<input type="text" name="phone"><br>
+		<input type="text" name="phone" placeholder="203-987-6543"><br>
 		<input type="password" name="password" placeholder="password" required><br>
 		<input type="password" name="confirm_password" placeholder="confirm password" required><br>
 		<input type="submit" name="submit" value="Register">
