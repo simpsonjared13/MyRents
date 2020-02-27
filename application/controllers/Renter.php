@@ -28,10 +28,15 @@ class Renter extends CI_Controller {
 	}
 	public function register()
 	{
+		$this->load->view('templates/header');
 		$this->load->view('register');
+		$this->load->view('templates/footer');
 	}
 	public function home()
 	{
 		$this->load->view('HomePage');
+	}
+	public function finances(){
+		$this->load->view('finances');
 	}
 }
