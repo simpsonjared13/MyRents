@@ -24,7 +24,15 @@ class Renter extends CI_Controller {
 	}
 	public function login()
 	{
+		$sql = "SELECT * FROM users";
+		$query = $this->db->query($sql);
+
+		if($query != false){
+			echo "worked";
+		}
 		$this->load->view('login');
+		
+
 	}
 	public function register()
 	{
@@ -37,11 +45,17 @@ class Renter extends CI_Controller {
 		$this->load->model('Registration_Model');
 		$result = $this->Registration_Model->registerRenter();
 		$this->load->view('templates/header');
-		echo "<p>";
-		foreach($result as $key => $value) {
-			echo $key. ": ". $value. " ";
+		if ($result == "XSS Attack") {
+			echo "XSS Attack";
 		}
-		echo "</p>";
+		else if($result == "passwords error"){
+			echo "Passwords do not match";
+			sleep(2);
+			redirect("MyRents/Renter/register");
+		}
+		else{
+			echo "Successful Registration!";
+		}
 
 		$this->load->view('templates/footer');
 	}

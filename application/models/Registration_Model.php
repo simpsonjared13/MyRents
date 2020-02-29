@@ -35,10 +35,11 @@ class Registration_Model extends CI_Model{
             $hall = $sql->row();
             
             $data = array(
-                    'userid' => $row->id,
+                    'user_id' => $row->id,
                     'fist_name' => $row->fname,
                     'last_name' => $row->lname,
                     'username' => $row->username,
+
 
                     );
             $this->session->set_userdata($data);
@@ -50,13 +51,48 @@ class Registration_Model extends CI_Model{
     }
 
     public function registerRenter(){
-        $user_data = array(
+        $users = array(
+            'first_name' => $this->input->post('first_name'),
+            'last_name' => $this->input->post('last_name'),
             'username' => $this->input->post('username'),
             'email' => $this->input->post('email'),
             'phone' => $this->input->post('phone'),
             'password' => $this->input->post('password'),
-            'confirm_password' => $this->input->post('confirm_password') );
-        return $user_data;
+            'confirm_password' => $this->input->post('confirm_password')
+             );
+        foreach ($users as $key => $value) {
+            if(!$this->security->xss_clean($value, TRUE)){
+                return "XSS Attack";
+            }
+        }
+        if($users['password'] != $users['confirm_password']){
+            return "passwords error";
+        }
+        $hash = password_hash($users['password'], PASSWORD_DEFAULT);
+
+        array_pop($users);array_pop($users);
+
+        // unset($users['password']);reset($users);
+        // unset($users['confirm_password']);reset($users);
+        $query = $this->db->insert('users', $users);
+        if($query){
+            $sql = "SELECT user_id FROM users WHERE username = '" . $users["username"] . "' AND email = '". $users["email"] . "'";
+            $query = $this->db->query($sql);
+            if($query != null){
+                $row = $query->row();
+                $enpu = array("user_id" => $row->user_id, "hash" => $hash);
+                $query = $this->db->insert('enpu', $enpu);
+
+            }
+            else{
+                return 0;
+            }
+            return 1;
+        }
+        else{
+            return 0;
+        }
+        //return $users;
 
     }
 
