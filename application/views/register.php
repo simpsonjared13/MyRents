@@ -1,7 +1,7 @@
 <h1 class="header">Register Renter Page</h1>
 <br>
 <div class="Register">
-	<form method="POST" action="registerRenter" onsubmit="checkPassword()">
+	<form method="POST" action="registerRenter">
 		<input type="text" name="first_name" placeholder="first name" required><br>
 		<input type="text" name="last_name" placeholder="last name" required><br>
 		<input type="text" name="username" placeholder="username" required><br>

@@ -24,15 +24,42 @@ class Renter extends CI_Controller {
 	}
 	public function login()
 	{
-		$sql = "SELECT * FROM users";
-		$query = $this->db->query($sql);
+		//temporary login on local host
+		// $sql = "SELECT * FROM users";
+		// $query = $this->db->query($sql);
 
-		if($query != false){
-			echo "worked";
-		}
+		//future code for when on GCP
+		// $conn = new mysqli('35.243.179.29', 'testing', 'zBflahjPMMKKIMBo', 'information_schema');
+		// $sql = "SELECT * FROM information_schema";
+		// $query = $conn->query($query);
+		// if($query != false){
+		// 	echo "worked";
+		// }
+		$this->load->view('templates/header');
 		$this->load->view('login');
-		
+		$this->load->view('templates/footer');
+	}
 
+	public function doLogin(){
+		$this->load->model('Authentication_Model');
+		$result = $this->Authentication_Model->validateLogin();
+		if ($result == "XSS Attack") {
+			echo "XSS Attack";
+		}
+		else if($result == "Bad Password"){
+			echo "Wrong Password";
+		}
+		else if($result == "No Password"){
+			echo "Wrong Password";
+		}
+		else if($result == "No User"){
+			echo "Wrong Password";
+		}
+		else{
+			echo "Successful Login!";
+			echo "<br><br>";
+			echo print_r($this->session->userdata());
+		}
 	}
 	public function register()
 	{
@@ -42,16 +69,16 @@ class Renter extends CI_Controller {
 	}
 	public function registerRenter()
 	{
-		$this->load->model('Registration_Model');
-		$result = $this->Registration_Model->registerRenter();
+		$this->load->model('Authentication_Model');
+		$result = $this->Authentication_Model->registerRenter();
 		$this->load->view('templates/header');
 		if ($result == "XSS Attack") {
 			echo "XSS Attack";
 		}
 		else if($result == "passwords error"){
 			echo "Passwords do not match";
-			sleep(2);
-			redirect("MyRents/Renter/register");
+			//sleep(2);
+			//redirect("MyRents/Renter/register");
 		}
 		else{
 			echo "Successful Registration!";
