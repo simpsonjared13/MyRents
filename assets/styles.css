@@ -138,3 +138,32 @@ h1{
 	border-radius: 10px;
 	box-shadow: 5px 5px 10px black;
 }
+
+.box_first_row {
+	background: #cecece;
+	border: solid;
+	padding: 10px;
+	margin-left: 5%;
+	margin-right: 5%;
+	float: left;
+	width: 90%;
+	height: fit-content;
+	overflow: auto;
+	border-radius: 10px;
+	box-shadow: 5px 5px 10px black;
+	margin-bottom: 3%;
+}
+
+.box_second_row{
+	background: #cecece;
+	border: solid;
+	padding: 10px;
+	margin-left: 5%;
+	margin-right: 5%;
+	float: left;
+	width: 90%;
+	height: 83.5%;
+	overflow: auto;
+	border-radius: 10px;
+	box-shadow: 5px 5px 10px black;
+}

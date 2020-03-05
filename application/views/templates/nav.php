@@ -2,6 +2,7 @@
   <a href="home">Home</a>
   <a href="finances">Finances</a>
   <a href="tenants">Tenants</a>
+  <a href="properties">Properties</a>
   <div class="dropdown">
     <button class="dropbtn">Dropdown
       <i class="fa fa-caret-down"></i>
