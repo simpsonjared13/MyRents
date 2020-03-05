@@ -85,20 +85,23 @@ h1{
 
 
 .wrapper_1{
-
+  
 }
 
 .wrapper_2{
-	
+  float: left;  
 }
 .wrapper_3{
-	
+
 }
 .wrapper_4{
-	
+  position: relative;
+  left: 50%;
 }
 
 .homepage_box {
 	display: block;
-	background: blue;
-}
+  background: lightgray;
+  height: 10em;
+  width: 50%;
+}s
