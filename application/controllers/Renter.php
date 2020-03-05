@@ -34,7 +34,9 @@ class Renter extends CI_Controller {
 	}
 	public function home()
 	{
+		$this->load->view('templates/header');
 		$this->load->view('HomePage');
+		$this->load->view('templates/footer');
 	}
 	public function finances(){
 		$this->load->view('finances');

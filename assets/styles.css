@@ -1,3 +1,15 @@
+header{
+	color:white;
+	font-weight: bold;
+	font-size: larger;
+    display:inline;
+    background-color: #8DB2C7;
+    position: absolute;
+    top:0;
+    left:0;
+    right:0;
+}
+
 h1{
 	text-align: center;
 }
