@@ -13,3 +13,14 @@ header{
 h1{
 	text-align: center;
 }
+.Register{
+	margin-left: 40%
+}
+.Register input{
+	margin:20px;
+	padding: 10px;
+	width: fit-content;
+}
+.Register input[type=submit]{
+	margin-left: 10%;
+}

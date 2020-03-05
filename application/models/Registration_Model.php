@@ -48,6 +48,19 @@ class Registration_Model extends CI_Model{
         }
         
     }
+
+    public function registerRenter(){
+        $user_data = array(
+            'username' => $this->input->post('username'),
+            'email' => $this->input->post('email'),
+            'phone' => $this->input->post('phone'),
+            'password' => $this->input->post('password'),
+            'confirm_password' => $this->input->post('confirm_password') );
+        return $user_data;
+
+    }
+
+
     
     public function register(){
         // grab user input
