@@ -36,8 +36,18 @@ class Renter extends CI_Controller {
 		// 	echo "worked";
 		// }
 		$this->load->view('templates/header');
+		echo print_r($this->session->userdata());
+		if($this->session->userdata('username') == null)
+		{
+			echo "logged out";
+		}
+
 		$this->load->view('login');
 		$this->load->view('templates/footer');
+	}
+	public function logout(){
+		$this->session->sess_destroy();
+		redirect("Renter/login");
 	}
 
 	public function doLogin(){
@@ -58,6 +68,7 @@ class Renter extends CI_Controller {
 		else{
 			echo "Successful Login!";
 			echo "<br><br>";
+			redirect("Renter/home");
 			echo print_r($this->session->userdata());
 		}
 	}
@@ -88,9 +99,28 @@ class Renter extends CI_Controller {
 	}
 	public function home()
 	{
-		$this->load->view('HomePage');
+
+		if($this->session->userdata('username') == null)
+		{
+			echo "You are not logged in, please go to the <a href='http://localhost/MyRents/Renter/login'>login page</a>";
+		}
+		else{
+			$this->load->view('templates/header');
+			$this->load->view('templates/nav');
+			$this->load->view('home');
+			$this->load->view('templates/footer');
+		}
 	}
 	public function finances(){
-		$this->load->view('finances');
+		if($this->session->userdata('username') == null)
+		{
+			echo "You are not logged in, please go to the <a href='http://localhost/MyRents/Renter/login'>login page</a>";
+		}
+		else{
+			$this->load->view('templates/header');
+			$this->load->view('templates/nav');
+			$this->load->view('finances');
+			$this->load->view('templates/footer');
+		}
 	}
 }
