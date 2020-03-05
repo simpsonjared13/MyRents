@@ -11,5 +11,5 @@
       <a href="#">Link 3</a>
     </div>
   </div>
-  <a href="logout">Logout</a>
+  <a href="logout" class="logout">Logout</a>
 </div>
