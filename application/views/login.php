@@ -5,4 +5,6 @@
 		<input type="password" name="password" id="password" placeholder="password" required><br>
 		<input type="submit" name="submit" value="Login">
 	</form>
+	<br><br>
+	<a href="register">Register Here</a>
 </div>
