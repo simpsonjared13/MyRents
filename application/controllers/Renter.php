@@ -140,6 +140,7 @@ class Renter extends CI_Controller {
 			$this->load->view('templates/nav');
 			$this->load->view('properties');
 			$this->load->view('templates/footer');
+		}
 	}
 	public function tenants(){
 		if($this->session->userdata('username') == null)
