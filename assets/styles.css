@@ -1,3 +1,13 @@
+html,body{
+	background-color: #dedede ;
+	margin: 0px;
+	height: 100%;
+}
+
+.container{
+  margin-top: 2%;
+  height: 80%;
+}
 h1{
 	text-align: center;
 }
@@ -11,6 +21,11 @@ h1{
 }
 .Register input[type=submit]{
 	margin-left: 10%;
+}
+.logout{
+	position: absolute;
+    top: 0;
+    right: 0;
 }
 
 /* Navbar container */
@@ -29,6 +44,7 @@ h1{
   padding: 14px 16px;
   text-decoration: none;
 }
+
 
 /* The dropdown container */
 .dropdown {
@@ -84,24 +100,41 @@ h1{
 }
 
 
+
+
+
 .wrapper_1{
-  
+	width: 100%; 
+	height: 37.736%;
 }
 
 .wrapper_2{
-  float: left;  
-}
-.wrapper_3{
-
-}
-.wrapper_4{
-  position: relative;
-  left: 50%;
+	width: 100%; 
+	height: 37.736%;
 }
 
-.homepage_box {
-	display: block;
-  background: lightgray;
-  height: 10em;
-  width: 50%;
-}s
+.homepage_box_left {
+	background: #ffffff;
+	border: solid;
+	padding: 10px;
+	margin-left: 5%;
+	float: left;
+	width: 41.7%;
+	height: 83.5%;
+	overflow: auto;
+	border-radius: 10px;
+	box-shadow: 5px 5px 10px black;
+}
+
+.homepage_box_right{
+	background: #ffffff;
+	border: solid;
+	margin-right: 5%; 
+	padding: 10px;
+	float: right;
+	width: 41.7%;
+	height: 83.5%;
+	overflow: auto;
+	border-radius: 10px;
+	box-shadow: 5px 5px 10px black;
+}
