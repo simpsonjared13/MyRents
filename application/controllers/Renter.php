@@ -140,6 +140,17 @@ class Renter extends CI_Controller {
 			$this->load->view('templates/nav');
 			$this->load->view('properties');
 			$this->load->view('templates/footer');
+	}
+	public function tenants(){
+		if($this->session->userdata('username') == null)
+		{
+			echo "You are not logged in, please go to the <a href='http://localhost/MyRents/Renter/login'>login page</a>";
+		}
+		else{
+			$this->load->view('templates/header');
+			$this->load->view('templates/nav');
+			$this->load->view('tenants');
+			$this->load->view('templates/footer');
 		}
 	}
 }
