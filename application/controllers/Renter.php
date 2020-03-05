@@ -106,6 +106,7 @@ class Renter extends CI_Controller {
 	}
 	public function home()
 	{
+
 		if($this->session->userdata('username') == null)
 		{
 			echo "You are not logged in, please go to the <a href='http://localhost/MyRents/Renter/login'>login page</a>";
