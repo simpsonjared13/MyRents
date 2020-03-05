@@ -20,7 +20,18 @@ class Renter extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('login');
+		if($this->session->userdata('username') == null)
+		{
+			$this->load->view('templates/header');
+			echo print_r($this->session->userdata());
+			$this->load->view('login');
+			$this->load->view('templates/footer');		}
+		else{
+			$this->load->view('templates/header');
+			$this->load->view('templates/nav');
+			$this->load->view('home');
+			$this->load->view('templates/footer');
+		}
 	}
 	public function login()
 	{
@@ -37,10 +48,6 @@ class Renter extends CI_Controller {
 		// }
 		$this->load->view('templates/header');
 		echo print_r($this->session->userdata());
-		if($this->session->userdata('username') == null)
-		{
-			echo "logged out";
-		}
 
 		$this->load->view('login');
 		$this->load->view('templates/footer');
@@ -82,7 +89,7 @@ class Renter extends CI_Controller {
 	{
 		$this->load->model('Authentication_Model');
 		$result = $this->Authentication_Model->registerRenter();
-		$this->load->view('templates/header');
+		$this->load->view('templates/header_redirect');
 		if ($result == "XSS Attack") {
 			echo "XSS Attack";
 		}
