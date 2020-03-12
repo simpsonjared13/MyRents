@@ -152,11 +152,7 @@ class Renter extends CI_Controller {
 		}
 		else{
 			$this->Renter_Model->insert_property();
-			$data['properties']=$this->Renter_Model->get_properties();
-			$this->load->view('templates/header');
-			$this->load->view('templates/nav');
-			$this->load->view('properties', $data);
-			$this->load->view('templates/footer');
+			redirect("Renter/properties");
 		}
 	}
 
