@@ -13,5 +13,16 @@ class Renter_Model extends CI_Model{
         $results=$this->db->query($sql2);
         return $results->result_array();
     }
+    public function insert_property(){
+        $address=$this->input->post("address");
+        $city=$this->input->post("city");
+        $state=$this->input->post("state");
+        $country=$this->input->post("country");
+        $zip=$this->input->post("zip");
+        $num_units=$this->input->post("num_units");
+
+        $sql3="insert into properties(address, city, state, country, zip, num_units) values('$address', '$city', '$state', '$country', '$zip', '$num_units')";
+        $this->db->query($sql3);
+    }
 }
 ?>
