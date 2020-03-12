@@ -65,11 +65,11 @@
 			var h = document.getElementById("property_units");
 			var inputs = document.getElementById("inputs");
 			if(inputs == null){
-				h.insertAdjacentHTML("afterbegin", str);	
+				inputs.insertAdjacentHTML("afterbegin", str);	
 			}
 			else{
-				h.innerHTML = '';
-				h.insertAdjacentHTML("afterbegin", str);	
+				inputs.innerHTML = '';
+				inputs.insertAdjacentHTML("afterbegin", str);	
 			}
 		}
 	}
