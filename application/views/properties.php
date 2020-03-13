@@ -50,9 +50,7 @@
 					</tr>
 				<?php endforeach; ?>
 			</table>
-		</div>
-	</div>
-</div>
+			
 <script type="text/javascript">
 	function unitsStuff(){
 		var element = document.getElementById('units').value;
@@ -76,6 +74,37 @@
 </script>
 
 <h2>Update Property</h2>
-					<form method="POST" action="update_property">
-
-					</form>
+	<form name="update_prop" method="POST" action="update_property">
+		Property ID: <input type="number"  name="property_id">
+		What to update: <select id="update" name="update"  onchange="update_prompt()">
+			<option value="">Select Update</option>
+			<option value="address">Address</option>
+			<option value="city">City</option>
+			<option value="state">State</option>
+			<option value="zip">Zip</option>
+		</select>
+		<div id="update_prop">
+		</div>
+		<input type="submit">
+	</form>
+	</div>
+</div>
+</div>
+	<script type="text/javascript">
+		function update_prompt(){
+			var update_str='';
+			if(document.update_prop.update.value == "address"){
+				var update_str = 'new address:<input type="text" name="new_address">';
+			}
+			else if(document.update_prop.update.value == "city"){
+				var update_str = 'new city:<input type="text" name="new_city">';
+			}
+			else if(document.update_prop.update.value == "state"){
+				var update_str = 'new state:<input type="text" name="new_state">';
+			}
+			else if(document.update_prop.update.value == "zip"){
+				var update_str = 'new zip:<input type="text" name="new_zip">';
+			}
+			document.getElementById("update_prop").innerHTML= update_str;
+		}
+	</script>

@@ -162,6 +162,18 @@ class Renter extends CI_Controller {
 		}
 	}
 
+	public function update_property(){
+		if($this->session->userdata('username') == null)
+		{
+			echo "You are not logged in, please go to the <a href='http://localhost/MyRents/Renter/login'>login page</a>";
+		}
+		else{
+			$result = $this->Renter_Model->update_property();
+			redirect("Renter/properties");
+		}
+	}
+
+
 	public function tenants(){
 		if($this->session->userdata('username') == null)
 		{

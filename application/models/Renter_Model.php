@@ -4,21 +4,14 @@ class Renter_Model extends CI_Model{
         $this->load->database();
     }
     public function get_properties(){
+        
         $user=$this->session->userdata('username');
         $sql5="select user_id from users where username='$user'";
         $results=$this->db->query($sql5);
         $row=$results->row_array();
         $user_id=$row["user_id"];
-
-        $sql6="select property_id from user_properties where user_id='$user_id'";
-        $results=$this->db->query($sql6);
-        $results_list=$results->result_array();
-        $property_array= array();
-        foreach($results_list as $row){
-            array_push($property_array, $row['property_id']);
-        }
-
-        $sql1="SELECT * from properties where property_id in $property_array";
+        
+        $sql1="select p.property_id, p.address, p.city, p.state, p.zip FROM users u join user_properties up on u.user_id=$user_id join properties p on p.property_id=up.property_id";
         $result=$this->db->query($sql1);
         return $result->result_array();
     }
@@ -65,6 +58,33 @@ class Renter_Model extends CI_Model{
             
         // }
         return 1;
+    }
+    public function update_property(){
+        $property_id=$this->input->post("property_id");
+        if($address=$this->input->post("new_address")){
+            $sql="update properties set address='$address' where property_id=$property_id";
+            if($this->db->query($sql)){
+                //echo "success";
+            }
+        }
+        if($city=$this->input->post("new_city")){
+            $sql="update properties set city='$city' where property_id=$property_id";
+            if($this->db->query($sql)){
+                //echo "success";
+            }
+        }
+        if($state=$this->input->post("new_state")){
+            $sql="update properties set state='$state' where property_id=$property_id";
+            if($this->db->query($sql)){
+                //echo "success";
+            }
+        }
+        if($zip=$this->input->post("new_zip")){
+            $sql="update properties set zip='$zip' where property_id=$property_id";
+            if($this->db->query($sql)){
+                //echo "success";
+            }
+        }    
     }
 }
 ?>
