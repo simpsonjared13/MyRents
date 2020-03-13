@@ -6,6 +6,7 @@ class Authentication_Model extends CI_Model{
     }
     public function validateLogin(){
         $users = array(
+            'user_id' => "",
             'first_name' => "",
             'last_name' => "",
             'username' => $this->input->post('username'),
@@ -27,6 +28,7 @@ class Authentication_Model extends CI_Model{
             if($result2){
                 $hash = $result2->row()->hash;
                 if(password_verify($users['password'], $hash)){
+                    $users['user_id'] = $row1->user_id;
                     $users['first_name'] = $row1->first_name;
                     $users['last_name'] = $row1->last_name;
                     $users['email'] = $row1->email;
