@@ -38,7 +38,10 @@
 					</tr>
 				<?php endforeach; ?>
 			</table>
+			<h2>Update Property</h2>
+					<form method="POST" action="update_property">
 
+					</form>
 		</div>
 
 	</div>
