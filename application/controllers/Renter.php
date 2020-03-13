@@ -115,6 +115,7 @@ class Renter extends CI_Controller {
 			echo print_r($this->session->userdata());
 			$data['properties']=$this->Renter_Model->get_properties();
 			$data['tenants']=$this->Renter_Model->get_tenants();
+			$data['requests']=$this->Renter_Model->get_requests();
 			$this->load->view('templates/header');
 			$this->load->view('templates/nav');
 			$this->load->view('home', $data);

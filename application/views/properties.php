@@ -39,6 +39,8 @@
 					<th>city</th>
 					<th>state</th>
 					<th>zip</th>
+					<th>rent_income</th>
+					<th>recurring_expenses</th>
 				</tr>
 				<?php foreach($properties as $property): ?>
 					<tr>
@@ -47,6 +49,8 @@
 						<td><?php echo $property['city']; ?></td>
 						<td><?php echo $property['state']; ?></td>
 						<td><?php echo $property['zip']; ?></td>
+						<td><?php echo $property['rent_income']; ?></td>
+						<td><?php echo $property['recurring_expenses']; ?></td>
 					</tr>
 				<?php endforeach; ?>
 			</table>

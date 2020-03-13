@@ -11,7 +11,7 @@ class Renter_Model extends CI_Model{
         $row=$results->row_array();
         $user_id=$row["user_id"];
         
-        $sql1="select p.property_id, p.address, p.city, p.state, p.zip FROM users u join user_properties up on u.user_id=$user_id join properties p on p.property_id=up.property_id";
+        $sql1="select p.property_id, p.address, p.city, p.state, p.zip, p.rent_income, p.recurring_expenses FROM users u join user_properties up on u.user_id=$user_id join properties p on p.property_id=up.property_id";
         $result=$this->db->query($sql1);
         return $result->result_array();
     }
@@ -19,6 +19,17 @@ class Renter_Model extends CI_Model{
         $sql2="SELECT users.user_id, users.first_name, users.last_name, users.phone, users.email FROM users INNER JOIN user_properties ON users.user_id=user_properties.user_id";
         $results=$this->db->query($sql2);
         return $results->result_array();
+    }
+    public function get_requests(){
+        $user=$this->session->userdata('username');
+        $sql5="select user_id from users where username='$user'";
+        $results=$this->db->query($sql5);
+        $row=$results->row_array();
+        $user_id=$row["user_id"];
+        
+        $sql="select r.request_id, r.unit_id, r.request_type, r.comments FROM requests r join user_properties up on up.user_id=$user_id join properties p on p.property_id=up.property_id";
+        $result=$this->db->query($sql);
+        return $result->result_array();
     }
     public function insert_property(){
         $address=$this->input->post("address");

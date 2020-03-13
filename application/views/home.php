@@ -14,6 +14,8 @@
 					<th>city</th>
 					<th>state</th>
 					<th>zip</th>
+					<th>rent_income</th>
+					<th>recurring_expenses</th>
 				</tr>
 				<?php foreach($properties as $property): ?>
 					<tr>
@@ -22,6 +24,8 @@
 						<td><?php echo $property['city']; ?></td>
 						<td><?php echo $property['state']; ?></td>
 						<td><?php echo $property['zip']; ?></td>
+						<td><?php echo $property['rent_income']; ?></td>
+						<td><?php echo $property['recurring_expenses']; ?></td>
 					</tr>
 				<?php endforeach; ?>
 			</table>
@@ -54,6 +58,23 @@
 
 		<div class="homepage_box_right">
 			<p>requests</p>
+			<table class="renter-table">
+				<tr>
+					<th>request_id</th>
+					<th>unit_id</th>
+					<th>request_type</th>
+					<th>comments</th>
+				</tr>
+				<?php foreach($requests as $request): ?>
+					<tr>
+						<td><?php echo $request['request_id']; ?></td>
+						<td><?php echo $request['unit_id']; ?></td>
+						<td><?php echo $request['request_type']; ?></td>
+						<td><?php echo $request['comments']; ?></td>
+					</tr>
+				<?php endforeach; ?>
+			</table>
+
 		</div>
 	</div>
 </div>
