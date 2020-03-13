@@ -112,6 +112,7 @@ class Renter extends CI_Controller {
 			echo "You are not logged in, please go to the <a href='http://localhost/MyRents/Renter/login'>login page</a>";
 		}
 		else{
+			echo print_r($this->session->userdata());
 			$data['properties']=$this->Renter_Model->get_properties();
 			$data['tenants']=$this->Renter_Model->get_tenants();
 			$this->load->view('templates/header');
@@ -151,8 +152,13 @@ class Renter extends CI_Controller {
 			echo "You are not logged in, please go to the <a href='http://localhost/MyRents/Renter/login'>login page</a>";
 		}
 		else{
-			$this->Renter_Model->insert_property();
-			redirect("Renter/properties");
+			$result = $this->Renter_Model->insert_property();
+			if($result){
+				redirect("Renter/properties");
+			}
+			else{
+				echo "FAILED";
+			}
 		}
 	}
 
@@ -162,6 +168,7 @@ class Renter extends CI_Controller {
 			echo "You are not logged in, please go to the <a href='http://localhost/MyRents/Renter/login'>login page</a>";
 		}
 		else{
+			$data['properties']=$this->Renter_Model->get_properties();
 			$this->load->view('templates/header');
 			$this->load->view('templates/nav');
 			$this->load->view('tenants');
