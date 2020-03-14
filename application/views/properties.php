@@ -7,9 +7,21 @@
 				Address:<input type="text" name="address">
 				City:<input type="text" name="city">
 				State:<input type="text" name="state">
-				County:<input type="text" name="county">
+				Country:<input type="text" name="country">
 				Zip:<input type="text" name="zip">
-				Number of Units:<input type="number" name="num_units">
+				Number of Units:<select id="units" name="num_units" onchange="unitsStuff()">
+			<?php
+				for($i = 0; $i <= 5; $i++){
+					echo '<option value="'.$i.'">'.$i.'</option>';
+				}
+			?>
+				</select>
+				<br>
+			<div class="hidden" id='property_units'>
+				<div id="inputs">
+				</div>
+			</div>
+
 				<input type="submit" name="subimt">
 			</form>
 		</div>
@@ -27,6 +39,9 @@
 					<th>city</th>
 					<th>state</th>
 					<th>zip</th>
+					<th>country</th>
+					<th>rent_income</th>
+					<th>recurring_expenses</th>
 				</tr>
 				<?php foreach($properties as $property): ?>
 					<tr>
@@ -35,11 +50,51 @@
 						<td><?php echo $property['city']; ?></td>
 						<td><?php echo $property['state']; ?></td>
 						<td><?php echo $property['zip']; ?></td>
+						<td><?php echo $property['country']; ?></td>
+						<td><?php echo $property['rent_income']; ?></td>
+						<td><?php echo $property['recurring_expenses']; ?></td>
 					</tr>
 				<?php endforeach; ?>
 			</table>
+			
+<script type="text/javascript">
+	function unitsStuff(){
+		var element = document.getElementById('units').value;
+		if(element > 0){
+			var str ='';
+			for (var i = 1; i <= element; i++) {
+				str += 'Unit Number:<input type="text" name="unit_num_'+i+'">\
+						Rent:<input type="text" name="rent_'+i+'"><br>';
+			}
+			var h = document.getElementById("property_units");
+			var inputs = document.getElementById("inputs");
+			if(inputs == null){
+				inputs.insertAdjacentHTML("afterbegin", str);	
+			}
+			else{
+				inputs.innerHTML = '';
+				inputs.insertAdjacentHTML("afterbegin", str);	
+			}
+		}
+	}
+</script>
 
-		</div>
 
-	</div>
+<h2>update property</h2>
+<form name="update_prop" method="POST" action="update_property">
+	Property ID: <select id="property_select" name="property_select">
+		<option value="">Select Property</option>
+		<?php foreach($properties as $property): ?>
+			<option name="<?php echo $property['property_id']; ?>"><?php echo $property['property_id']; ?> </option>
+		<?php endforeach; ?>
+	</select>
+	New Address:<input type="text" name="new_address">
+	New City:<input type="text" name="new_city">
+	New State:<input type="text" name="new_state">
+	New Country:<input type="text" name="new_country">
+	New Zip:<input type="text" name="new_zip">
+	<input type="submit" name="submit">
+</form>
+</div>
+</div>
 </div>

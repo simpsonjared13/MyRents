@@ -6,6 +6,7 @@ class Authentication_Model extends CI_Model{
     }
     public function validateLogin(){
         $users = array(
+            'user_id' => "",
             'first_name' => "",
             'last_name' => "",
             'username' => $this->input->post('username'),
@@ -27,6 +28,7 @@ class Authentication_Model extends CI_Model{
             if($result2){
                 $hash = $result2->row()->hash;
                 if(password_verify($users['password'], $hash)){
+                    $users['user_id'] = $row1->user_id;
                     $users['first_name'] = $row1->first_name;
                     $users['last_name'] = $row1->last_name;
                     $users['email'] = $row1->email;
@@ -90,6 +92,38 @@ class Authentication_Model extends CI_Model{
         }
         //return $users;
 
+    }
+    public function registerRentee(){
+        $user_info = array(
+            'first_name' => $this->input->post('first_name'),
+            'last_name' => $this->input->post('last_name'),
+            'username' => $this->input->post('username'),
+            'email' => $this->input->post('email'),
+            'phone' => $this->input->post('phone'),
+            'password' => "123"//Temporary!
+            //'password' => ""//Official
+            );
+        foreach ($user_info as $key => $value) {
+            if(!$this->security->xss_clean($value, TRUE)){
+                return "XSS Attack";
+            }
+        }
+        //Temporpary!
+        // $data = $user_info['first_name'] .$user_info['last_name'].'1234567890!@#$%^&*'.$user_info['email'];
+        // $pass = substr(str_shuffle($data), 0, 7);
+        $hash = password_hash($user_info['password'], PASSWORD_DEFAULT);
+        array_pop($user_info);
+        $query = $this->db->insert('users', $user_info);
+        if($query){
+            $user_id = $this->db->insert_id();
+            $enpu = array("user_id" => $user_id, "hash" => $hash);
+            $query = $this->db->insert('enpu', $enpu);
+            return $user_id;
+        }
+        else{
+            return 0;
+        }
+        
     }
 }
 ?>
