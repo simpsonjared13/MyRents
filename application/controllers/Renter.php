@@ -112,7 +112,7 @@ class Renter extends CI_Controller {
 			echo "You are not logged in, please go to the <a href='http://localhost/MyRents/Renter/login'>login page</a>";
 		}
 		else{
-			echo print_r($this->session->userdata());
+			//echo print_r($this->session->userdata());
 			$data['properties']=$this->Renter_Model->get_properties();
 			$data['tenants']=$this->Renter_Model->get_tenants();
 			$data['requests']=$this->Renter_Model->get_requests();
@@ -182,11 +182,32 @@ class Renter extends CI_Controller {
 			echo "You are not logged in, please go to the <a href='http://localhost/MyRents/Renter/login'>login page</a>";
 		}
 		else{
-			$data['properties']=$this->Renter_Model->get_properties();
+			$data['properties']=$this->Renter_Model->getUnitsAndProperties();
 			$this->load->view('templates/header');
 			$this->load->view('templates/nav');
-			$this->load->view('tenants');
+			$this->load->view('tenants',$data);
 			$this->load->view('templates/footer');
+		}
+	}
+	public function registerTenant(){
+		if($this->session->userdata('username') == null)
+		{
+			echo "You are not logged in, please go to the <a href='http://localhost/MyRents/Renter/login'>login page</a>";
+		}
+		else{
+			$result = $this->Renter_Model->registerTenant();
+			if($result == 1){
+				$this->load->view('templates/header');
+				$this->load->view('templates/nav');
+				var_dump($this->input->post());
+				$this->load->view('templates/footer');
+			}
+			else{
+				$this->load->view('templates/header');
+				$this->load->view('templates/nav');
+				echo "error";
+				$this->load->view('templates/footer');
+			}
 		}
 	}
 }

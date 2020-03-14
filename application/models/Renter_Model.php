@@ -16,7 +16,7 @@ class Renter_Model extends CI_Model{
         return $result->result_array();
     }
     public function get_tenants(){
-        $sql2="SELECT users.user_id, users.first_name, users.last_name, users.phone, users.email FROM users INNER JOIN user_properties ON users.user_id=user_properties.user_id";
+        $sql2="SELECT users.user_id, users.first_name, users.last_name, users.phone, users.email FROM users INNER JOIN user_properties USING (user_id)";
         $results=$this->db->query($sql2);
         return $results->result_array();
     }
@@ -107,6 +107,21 @@ class Renter_Model extends CI_Model{
                 //echo "success";
             }
         }            
+    }
+    public function getUnitsAndProperties(){
+        
+        $user_id=$this->session->userdata('user_id');
+        
+        $sql="
+        SELECT p.property_id, p.address, p.city, p.state, p.zip, p.country, p.rent_income, p.recurring_expenses, un.unit_id, un.unit_num, un.rent FROM users u 
+        JOIN user_properties up ON u.user_id=$user_id 
+        JOIN properties p ON p.property_id=up.property_id
+        JOIN units un ON un.property_id=up.property_id";
+        $result=$this->db->query($sql);
+        return $result->result_array();
+    }
+    public function registerTenant(){
+        return 1;
     }
 }
 ?>
