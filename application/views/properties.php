@@ -7,7 +7,7 @@
 				Address:<input type="text" name="address">
 				City:<input type="text" name="city">
 				State:<input type="text" name="state">
-				County:<input type="text" name="county">
+				Country:<input type="text" name="country">
 				Zip:<input type="text" name="zip">
 				Number of Units:<select id="units" name="num_units" onchange="unitsStuff()">
 			<?php
@@ -39,6 +39,7 @@
 					<th>city</th>
 					<th>state</th>
 					<th>zip</th>
+					<th>country</th>
 					<th>rent_income</th>
 					<th>recurring_expenses</th>
 				</tr>
@@ -49,6 +50,7 @@
 						<td><?php echo $property['city']; ?></td>
 						<td><?php echo $property['state']; ?></td>
 						<td><?php echo $property['zip']; ?></td>
+						<td><?php echo $property['country']; ?></td>
 						<td><?php echo $property['rent_income']; ?></td>
 						<td><?php echo $property['recurring_expenses']; ?></td>
 					</tr>
@@ -77,38 +79,22 @@
 	}
 </script>
 
-<h2>Update Property</h2>
-	<form name="update_prop" method="POST" action="update_property">
-		Property ID: <input type="number"  name="property_id">
-		What to update: <select id="update" name="update"  onchange="update_prompt()">
-			<option value="">Select Update</option>
-			<option value="address">Address</option>
-			<option value="city">City</option>
-			<option value="state">State</option>
-			<option value="zip">Zip</option>
-		</select>
-		<div id="update_prop">
-		</div>
-		<input type="submit">
-	</form>
-	</div>
+
+<h2>update property</h2>
+<form name="update_prop" method="POST" action="update_property">
+	Property ID: <select id="property_select" name="property_select">
+		<option value="">Select Property</option>
+		<?php foreach($properties as $property): ?>
+			<option name="<?php echo $property['property_id']; ?>"><?php echo $property['property_id']; ?> </option>
+		<?php endforeach; ?>
+	</select>
+	New Address:<input type="text" name="new_address">
+	New City:<input type="text" name="new_city">
+	New State:<input type="text" name="new_state">
+	New Country:<input type="text" name="new_country">
+	New Zip:<input type="text" name="new_zip">
+	<input type="submit" name="submit">
+</form>
 </div>
 </div>
-	<script type="text/javascript">
-		function update_prompt(){
-			var update_str='';
-			if(document.update_prop.update.value == "address"){
-				var update_str = 'new address:<input type="text" name="new_address">';
-			}
-			else if(document.update_prop.update.value == "city"){
-				var update_str = 'new city:<input type="text" name="new_city">';
-			}
-			else if(document.update_prop.update.value == "state"){
-				var update_str = 'new state:<input type="text" name="new_state">';
-			}
-			else if(document.update_prop.update.value == "zip"){
-				var update_str = 'new zip:<input type="text" name="new_zip">';
-			}
-			document.getElementById("update_prop").innerHTML= update_str;
-		}
-	</script>
+</div>

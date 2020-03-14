@@ -11,7 +11,7 @@ class Renter_Model extends CI_Model{
         $row=$results->row_array();
         $user_id=$row["user_id"];
         
-        $sql1="select p.property_id, p.address, p.city, p.state, p.zip, p.rent_income, p.recurring_expenses FROM users u join user_properties up on u.user_id=$user_id join properties p on p.property_id=up.property_id";
+        $sql1="select p.property_id, p.address, p.city, p.state, p.zip, p.country, p.rent_income, p.recurring_expenses FROM users u join user_properties up on u.user_id=$user_id join properties p on p.property_id=up.property_id";
         $result=$this->db->query($sql1);
         return $result->result_array();
     }
@@ -71,7 +71,7 @@ class Renter_Model extends CI_Model{
         return 1;
     }
     public function update_property(){
-        $property_id=$this->input->post("property_id");
+        $property_id=$this->input->post("property_select");        
         if($address=$this->input->post("new_address")){
             $sql="update properties set address='$address' where property_id=$property_id";
             if($this->db->query($sql)){
@@ -95,7 +95,7 @@ class Renter_Model extends CI_Model{
             if($this->db->query($sql)){
                 //echo "success";
             }
-        }    
+        }            
     }
 }
 ?>
