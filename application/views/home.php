@@ -2,6 +2,22 @@
 	<div class="wrapper_1">
 		<div class="homepage_box_left">
 			<p>finances</p>
+			<table class="renter-table">
+				<tr>
+					<th>property_id</th>
+					<th>request_cost</th>
+					<th>rent_total</th>
+					<th>upkeep_cost</th>
+				</tr>
+				<?php foreach($finances as $finance): ?>
+					<tr>
+						<td><?php echo $finance['property_id']; ?></td>
+						<td><?php echo $property['request_cost']; ?></td>
+						<td><?php echo $property['rent_total']; ?></td>
+						<td><?php echo $property['upkeep_total']; ?></td>
+					</tr>
+				<?php endforeach; ?>
+			</table>
 		</div>
 
 
