@@ -109,7 +109,6 @@ class Renter_Model extends CI_Model{
         }            
     }
     public function getUnitsAndProperties(){
-        
         $user_id=$this->session->userdata('user_id');
         
         $sql="
@@ -121,7 +120,19 @@ class Renter_Model extends CI_Model{
         return $result->result_array();
     }
     public function registerTenant(){
-        return 1;
+        $user_id=$this->session->userdata('user_id');
+        $this->load->model('Authentication_Model');
+        $user_id = $this->Authentication_Model->registerRentee();
+        $unit_id = $this->input->post($this->input->post("unit_chosen"));
+        $property_id = $this->input->post("property_id");
+        $sql = "INSERT INTO user_properties(user_id, unit_id, property_id) VALUES('$user_id', '$unit_id', '$property_id')";
+        $result=$this->db->query($sql);
+        if ($result) {
+            return 1;
+        }
+        else{
+            return 0;
+        }
     }
 }
 ?>

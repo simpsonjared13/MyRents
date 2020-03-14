@@ -195,6 +195,11 @@ class Renter extends CI_Controller {
 			echo "You are not logged in, please go to the <a href='http://localhost/MyRents/Renter/login'>login page</a>";
 		}
 		else{
+		// 	var_dump($this->input->post());
+		// 	echo "<br><br>";
+		// 	$unit_chosen = $this->input->post("unit_chosen");
+		// 	echo $this->input->post($unit_chosen);
+		// }
 			$result = $this->Renter_Model->registerTenant();
 			if($result == 1){
 				$this->load->view('templates/header');
