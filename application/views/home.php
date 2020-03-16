@@ -12,9 +12,9 @@
 				<?php foreach($finances as $finance): ?>
 					<tr>
 						<td><?php echo $finance['property_id']; ?></td>
-						<td><?php echo $property['request_cost']; ?></td>
-						<td><?php echo $property['rent_total']; ?></td>
-						<td><?php echo $property['upkeep_total']; ?></td>
+						<td><?php echo $finance['requests_cost']; ?></td>
+						<td><?php echo $finance['rent_total']; ?></td>
+						<td><?php echo $finance['upkeep_total']; ?></td>
 					</tr>
 				<?php endforeach; ?>
 			</table>
