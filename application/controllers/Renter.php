@@ -1,6 +1,5 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
 class Renter extends CI_Controller {
 
 	/**
@@ -18,6 +17,13 @@ class Renter extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
+	public function __construct(){
+	    parent::__construct();
+	    $params = array('user_id' => null, 'first_name' =>null, 'last_name' =>null, 'username' =>null, 'email' =>null, 'phone' =>null,'unit_id' =>null,'password' =>null);
+
+	    $this->load->library('User', $params);
+
+	}
 	public function index()
 	{
 		if($this->session->userdata('username') == null)
@@ -46,11 +52,17 @@ class Renter extends CI_Controller {
 		// if($query != false){
 		// 	echo "worked";
 		// }
-		$this->load->view('templates/header');
-		echo print_r($this->session->userdata());
 
-		$this->load->view('login');
-		$this->load->view('templates/footer');
+		echo "<p>hello</p>";
+		$params = array('user_id' => 123, 'first_name' =>"hared", 'last_name' =>"poo", 'username' =>"dude", 'email' =>null, 'phone' =>null,'unit_id' =>null,'password' =>null);
+		$this->user->set_user_info($params);
+		echo "<p>" .$this->user->get_first_name() . "</p>";
+		
+		// $current_user->load->view('templates/header');
+		// echo print_r($this->session->userdata());
+
+		// $this->load->view('login');
+		// $this->load->view('templates/footer');
 	}
 	public function logout(){
 		$this->session->sess_destroy();
