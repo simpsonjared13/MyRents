@@ -205,7 +205,7 @@ class Renter extends CI_Controller {
 			if($result == 1){
 				$this->load->view('templates/header');
 				$this->load->view('templates/nav');
-				var_dump($this->input->post());
+				//var_dump($this->input->post());
 				$this->load->view('templates/footer');
 			}
 			else{

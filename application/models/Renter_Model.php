@@ -112,13 +112,26 @@ class Renter_Model extends CI_Model{
     }
     public function getUnitsAndProperties(){
         $user_id=$this->session->userdata('user_id');
-        
+
+        //Get the already Occupied Units
+        $sql="SELECT unit_id FROM user_properties WHERE unit_id IS NOT NULL";
+        $occupied_units = $this->db->query($sql);
+        $unit_str = "";
+
+        //Create a string that can be used for the IN part of the sql query below
+        foreach ($occupied_units->result() as $unit) {
+            $unit_str .= $unit->unit_id . ",";
+        }
+        //Take out the final comma
+        $unit_str = substr($unit_str, 0, -1);
+        //Select all the available properties and units
         $sql="
-        SELECT p.property_id, p.address, p.city, p.state, p.zip, p.country, p.rent_income, p.recurring_expenses, un.unit_id, un.unit_num, un.rent FROM users u 
-        JOIN user_properties up ON u.user_id=$user_id 
+        SELECT DISTINCT p.property_id, p.address, p.city, p.state, p.zip, p.country, p.rent_income, p.recurring_expenses, un.unit_id, un.unit_num, un.rent, up.user_id FROM users u 
+        JOIN user_properties up ON u.user_id=$user_id
         JOIN properties p ON p.property_id=up.property_id
-        JOIN units un ON un.property_id=up.property_id";
+        JOIN units un ON un.property_id=up.property_id AND up.unit_id IS NULL AND un.unit_id NOT IN ($unit_str)";
         $result=$this->db->query($sql);
+        //Return the result
         return $result->result_array();
     }
     public function registerTenant(){
@@ -127,10 +140,26 @@ class Renter_Model extends CI_Model{
         $user_id = $this->Authentication_Model->registerRentee();
         $unit_id = $this->input->post($this->input->post("unit_chosen"));
         $property_id = $this->input->post("property_id");
+        $sql="SELECT p.rent_income, un.rent FROM user_properties up
+        JOIN properties p ON p.property_id=up.property_id AND p.property_id='$property_id'
+        JOIN units un ON un.property_id=p.property_id AND un.unit_id='$unit_id'";
+        $property = $this->db->query($sql);
+        $unit_rent = $property->row()->rent;
+        $property_rental_income = $property->row()->rent_income;
+
         $sql = "INSERT INTO user_properties(user_id, unit_id, property_id) VALUES('$user_id', '$unit_id', '$property_id')";
         $result=$this->db->query($sql);
         if ($result) {
-            return 1;
+            if($property_rental_income === null){
+                $sql = "UPDATE properties SET rent_income = '$unit_rent' WHERE property_id = '$property_id'";
+                $this->db->query($sql);
+                return 1;
+            }
+            else{
+                $sql = "UPDATE properties SET rent_income = rent_income + '$unit_rent' WHERE property_id = '$property_id'";
+                $this->db->query($sql);
+                return 1;
+            }
         }
         else{
             return 0;
