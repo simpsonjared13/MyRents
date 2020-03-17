@@ -1,9 +1,3 @@
-<?php foreach ($properties as $key => $value) {
-	echo print_r($properties[$key]);
-	//echo $properties[$key]['property_id'];
-	echo "<br>";
-} ?>
-<?php //echo print_r($properties); ?>
 <div class="container">
 	<h1 style="text-align: center;">Tenants</h1>
 	<div class="wrapper_1">
