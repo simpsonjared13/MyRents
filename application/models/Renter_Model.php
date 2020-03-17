@@ -11,12 +11,14 @@ class Renter_Model extends CI_Model{
         $row=$results->row_array();
         $user_id=$row["user_id"];
         
-        $sql1="select p.property_id, p.address, p.city, p.state, p.zip, p.country, p.rent_income, p.recurring_expenses FROM users u join user_properties up on u.user_id=$user_id join properties p on p.property_id=up.property_id";
+        $sql1="SELECT DISTINCT p.property_id, p.address, p.city, p.state, p.zip, p.country, p.rent_income, p.recurring_expenses FROM users u JOIN user_properties up ON u.user_id=$user_id JOIN properties p ON p.property_id=up.property_id";
         $result=$this->db->query($sql1);
         return $result->result_array();
     }
     public function get_tenants(){
-        $sql2="SELECT users.user_id, users.first_name, users.last_name, users.phone, users.email FROM users INNER JOIN user_properties USING (user_id)";
+        $sql2="SELECT u.user_id, u.first_name, u.last_name, u.phone, u.email, up.unit_id, p.address, p.city FROM users u
+        INNER JOIN user_properties up ON u.user_id=up.user_id AND up.unit_id IS NOT NULL
+        JOIN properties p USING (property_id)";
         $results=$this->db->query($sql2);
         return $results->result_array();
     }

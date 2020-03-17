@@ -31,7 +31,8 @@ class Renter extends CI_Controller {
 			$this->load->view('templates/header');
 			echo print_r($this->session->userdata());
 			$this->load->view('login');
-			$this->load->view('templates/footer');		}
+			$this->load->view('templates/footer');
+		}
 		else{
 			$this->load->view('templates/header');
 			$this->load->view('templates/nav');
@@ -40,13 +41,7 @@ class Renter extends CI_Controller {
 		}
 	}
 	public function login()
-	{
-
-		// echo "<p>hello</p>";
-		// $params = array('user_id' => 123, 'first_name' =>"hared", 'last_name' =>"poo", 'username' =>"dude", 'email' =>null, 'phone' =>null,'unit_id' =>null,'password' =>null);
-		// $this->user->set_user_info($params);
-		// echo "<p>" .$this->user->get_first_name() . "</p>";
-		
+	{	
 		$this->load->view('templates/header');
 		echo print_r($this->session->userdata());
 		$this->load->view('login');
