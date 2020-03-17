@@ -170,9 +170,18 @@ class Renter extends CI_Controller {
 		{
 			echo "You are not logged in, please go to the <a href='http://localhost/MyRents/Renter/login'>login page</a>";
 		}
-		else{
+		else{			
 			$result = $this->Renter_Model->update_property();
-			redirect("Renter/properties");
+			if($result == 1){
+				redirect("Renter/properties");
+			}
+			else{
+				$this->load->view('templates/header');
+				$this->load->view('templates/nav');
+				echo "error<br>";
+				echo $result;
+				$this->load->view('templates/footer');
+			}
 		}
 	}
 
@@ -184,6 +193,7 @@ class Renter extends CI_Controller {
 		}
 		else{
 			$data['properties']=$this->Renter_Model->getUnitsAndProperties();
+			$data['tenants']=$this->Renter_Model->get_tenants();
 			$this->load->view('templates/header');
 			$this->load->view('templates/nav');
 			$this->load->view('tenants',$data);

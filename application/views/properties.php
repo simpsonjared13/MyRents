@@ -42,6 +42,8 @@
 					<th>country</th>
 					<th>rent_income</th>
 					<th>recurring_expenses</th>
+					<th>upkeep costs</th>
+					<th>Units</th>
 				</tr>
 				<?php foreach($properties as $property): ?>
 					<tr>
@@ -53,6 +55,8 @@
 						<td><?php echo $property['country']; ?></td>
 						<td><?php echo $property['rent_income']; ?></td>
 						<td><?php echo $property['recurring_expenses']; ?></td>
+						<td><?php echo $property['upkeep_cost']; ?></td>
+						<td><?php echo $property['num_units']; ?></td>
 					</tr>
 				<?php endforeach; ?>
 			</table>
@@ -88,11 +92,10 @@
 			<option name="<?php echo $property['property_id']; ?>"><?php echo $property['property_id']; ?> </option>
 		<?php endforeach; ?>
 	</select>
-	New Address:<input type="text" name="new_address">
-	New City:<input type="text" name="new_city">
-	New State:<input type="text" name="new_state">
-	New Country:<input type="text" name="new_country">
-	New Zip:<input type="text" name="new_zip">
+	Number of Units: <input type="text" name="num_units">
+	Upkeep Costs: <input type="text" name="upkeep_cost">
+	Rental Income: <input type="text" name="rent_income">
+	Recurring Expense: <input type="text" name="recurring_expenses">
 	<input type="submit" name="submit">
 </form>
 </div>

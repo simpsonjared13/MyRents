@@ -11,7 +11,7 @@ class Renter_Model extends CI_Model{
         $row=$results->row_array();
         $user_id=$row["user_id"];
         
-        $sql1="SELECT DISTINCT p.property_id, p.address, p.city, p.state, p.zip, p.country, p.rent_income, p.recurring_expenses FROM users u JOIN user_properties up ON u.user_id=$user_id JOIN properties p ON p.property_id=up.property_id";
+        $sql1="SELECT DISTINCT p.property_id, p.address, p.city, p.state, p.zip, p.country, p.rent_income, p.recurring_expenses, p.num_units, p.upkeep_cost FROM users u JOIN user_properties up ON u.user_id=$user_id JOIN properties p ON p.property_id=up.property_id";
         $result=$this->db->query($sql1);
         return $result->result_array();
     }
@@ -85,30 +85,22 @@ class Renter_Model extends CI_Model{
     }
     public function update_property(){
         $property_id=$this->input->post("property_select");        
-        if($address=$this->input->post("new_address")){
-            $sql="update properties set address='$address' where property_id=$property_id";
-            if($this->db->query($sql)){
-                //echo "success";
+        $update_string = "";
+        foreach ($this->input->post() as $key => $value) {
+            if($value != "" && $key != "property_select" && $key != "submit"){
+                $update_string .= $key. " = '".$value."', ";
             }
         }
-        if($city=$this->input->post("new_city")){
-            $sql="update properties set city='$city' where property_id=$property_id";
-            if($this->db->query($sql)){
-                //echo "success";
-            }
+        $update_string = substr($update_string, 0, -2);
+        $sql = "UPDATE properties SET $update_string WHERE property_id='$property_id'";
+        //return $sql;
+        $result = $this->db->query($sql);
+        if($result){
+            return 1;
         }
-        if($state=$this->input->post("new_state")){
-            $sql="update properties set state='$state' where property_id=$property_id";
-            if($this->db->query($sql)){
-                //echo "success";
-            }
+        else{
+            return 0;
         }
-        if($zip=$this->input->post("new_zip")){
-            $sql="update properties set zip='$zip' where property_id=$property_id";
-            if($this->db->query($sql)){
-                //echo "success";
-            }
-        }            
     }
     public function getUnitsAndProperties(){
         $user_id=$this->session->userdata('user_id');
