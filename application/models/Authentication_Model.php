@@ -6,12 +6,13 @@ class Authentication_Model extends CI_Model{
     }
     public function validateLogin(){
         $users = array(
-            'user_id' => "",
-            'first_name' => "",
-            'last_name' => "",
+            'user_id' => null,
+            'first_name' => null,
+            'last_name' => null,
             'username' => $this->input->post('username'),
-            'email' => "",
-            'phone' => "",
+            'email' => null,
+            'phone' => null,
+            "unit_id" => null,
             'password' => $this->input->post('password')
              );
         foreach ($users as $key => $value) {
@@ -34,8 +35,17 @@ class Authentication_Model extends CI_Model{
                     $users['email'] = $row1->email;
                     $users['phone'] = $row1->phone;
                     array_pop($users);
-                    $this->session->set_userdata($users);
-                    return $users;
+                    $sql3 = "SELECT unit_id FROM user_properties WHERE user_id = '" . $row1->user_id . "'";
+                    $result3 = $this->db->query($sql3);
+                    if($result3->row()->unit_id != null){
+                        $users['unit_id'] = $result3->row()->unit_id;
+                        $this->session->set_userdata($users);
+                        return "Tenant";
+                    }
+                    else{
+                        $this->session->set_userdata($users);
+                        return "Renter";
+                    }
                 }
                 else{
                     return "Bad Password";

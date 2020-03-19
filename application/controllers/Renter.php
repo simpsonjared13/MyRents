@@ -1,6 +1,5 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
 class Renter extends CI_Controller {
 
 	/**
@@ -18,6 +17,13 @@ class Renter extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
+	public function __construct(){
+	    parent::__construct();
+	    $params = array('user_id' => null, 'first_name' =>null, 'last_name' =>null, 'username' =>null, 'email' =>null, 'phone' =>null,'unit_id' =>null,'password' =>null);
+
+	    $this->load->library('User', $params);
+
+	}
 	public function index()
 	{
 		if($this->session->userdata('username') == null)
@@ -25,7 +31,8 @@ class Renter extends CI_Controller {
 			$this->load->view('templates/header');
 			echo print_r($this->session->userdata());
 			$this->load->view('login');
-			$this->load->view('templates/footer');		}
+			$this->load->view('templates/footer');
+		}
 		else{
 			$this->load->view('templates/header');
 			$this->load->view('templates/nav');
@@ -34,21 +41,9 @@ class Renter extends CI_Controller {
 		}
 	}
 	public function login()
-	{
-		//temporary login on local host
-		// $sql = "SELECT * FROM users";
-		// $query = $this->db->query($sql);
-
-		//future code for when on GCP
-		// $conn = new mysqli('35.243.179.29', 'testing', 'zBflahjPMMKKIMBo', 'information_schema');
-		// $sql = "SELECT * FROM information_schema";
-		// $query = $conn->query($query);
-		// if($query != false){
-		// 	echo "worked";
-		// }
+	{	
 		$this->load->view('templates/header');
 		echo print_r($this->session->userdata());
-
 		$this->load->view('login');
 		$this->load->view('templates/footer');
 	}
@@ -72,11 +67,11 @@ class Renter extends CI_Controller {
 		else if($result == "No User"){
 			echo "Wrong Password";
 		}
-		else{
-			echo "Successful Login!";
-			echo "<br><br>";
+		else if($result == "Tenant"){
 			redirect("Renter/home");
-			echo print_r($this->session->userdata());
+		}
+		else{
+			redirect("Renter/home");
 		}
 	}
 	public function register()
@@ -110,6 +105,12 @@ class Renter extends CI_Controller {
 		if($this->session->userdata('username') == null)
 		{
 			echo "You are not logged in, please go to the <a href='http://localhost/MyRents/Renter/login'>login page</a>";
+		}
+		else if($this->session->userdata('unit_id') != null){
+			$this->load->view('tenants/header');
+			$this->load->view('tenants/nav');
+			$this->load->view('tenants/home');
+			$this->load->view('tenants/footer');
 		}
 		else{
 			//echo print_r($this->session->userdata());
@@ -169,9 +170,18 @@ class Renter extends CI_Controller {
 		{
 			echo "You are not logged in, please go to the <a href='http://localhost/MyRents/Renter/login'>login page</a>";
 		}
-		else{
+		else{			
 			$result = $this->Renter_Model->update_property();
-			redirect("Renter/properties");
+			if($result == 1){
+				redirect("Renter/properties");
+			}
+			else{
+				$this->load->view('templates/header');
+				$this->load->view('templates/nav');
+				echo "error<br>";
+				echo $result;
+				$this->load->view('templates/footer');
+			}
 		}
 	}
 
@@ -183,6 +193,7 @@ class Renter extends CI_Controller {
 		}
 		else{
 			$data['properties']=$this->Renter_Model->getUnitsAndProperties();
+			$data['tenants']=$this->Renter_Model->get_tenants();
 			$this->load->view('templates/header');
 			$this->load->view('templates/nav');
 			$this->load->view('tenants',$data);
@@ -204,7 +215,7 @@ class Renter extends CI_Controller {
 			if($result == 1){
 				$this->load->view('templates/header');
 				$this->load->view('templates/nav');
-				var_dump($this->input->post());
+				//var_dump($this->input->post());
 				$this->load->view('templates/footer');
 			}
 			else{
