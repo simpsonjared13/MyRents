@@ -44,6 +44,12 @@ class Renter_Model extends CI_Model{
         $result=$this->db->query($sql);
         return $result->result_array();
     }
+    public function get_units(){
+        $user_id=$this->session->userdata('user_id');
+        $sql="SELECT DISTINCT un.unit_id, un.property_id, un.unit_num, un.rent, un.request_active FROM users u JOIN user_properties up ON u.user_id=$user_id JOIN units un ON un.property_id=up.property_id;";
+        $result=$this->db->query($sql);
+        return $result->result_array();
+    }
     public function insert_property(){
         $address=$this->input->post("address");
         $city=$this->input->post("city");
