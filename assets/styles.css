@@ -1,5 +1,6 @@
 
 html,body{
+	background-image: url(/Pictures/MainHouse.jpg);
 	background-color: #dedede ;
 	margin: 0px;
 	height: 100%;
@@ -11,9 +12,10 @@ html,body{
 }
 h1{
 	text-align: center;
+	margin-top: 300;
 }
 .Register{
-	margin-left: 40%
+	margin-left: 44%
 }
 .Register input{
 	margin:20px;
@@ -21,7 +23,7 @@ h1{
 	width: fit-content;
 }
 .Register input[type=submit]{
-	margin-left: 10%;
+	margin-left: 7%;
 }
 .logout{
 	position: absolute;
