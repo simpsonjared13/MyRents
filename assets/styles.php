@@ -1,9 +1,7 @@
 
 html,body{
-	background-image: url(/Pictures/MainHouse.jpg);
-	background-color: #dedede ;
-	margin: 0px;
-	height: 100%;
+	background-image: url(/MyRents/assets/Pictures/MainHouse.jpg);
+	background-size: 100% 100%;
 }
 
 .container{
@@ -12,7 +10,10 @@ html,body{
 }
 h1{
 	text-align: center;
-	margin-top: 300;
+	font-size: 80px;
+	color: white;
+	text-shadow: 2px 2px 4px #000000;
+	margin-top: 15%;
 }
 .Register{
 	margin-left: 44%
@@ -23,7 +24,16 @@ h1{
 	width: fit-content;
 }
 .Register input[type=submit]{
-	margin-left: 7%;
+	margin-left: 5%;
+	color: white;
+	background-color: #f0ab36;
+	padding: 15px 32px;
+	font-size: 14px;
+	boarder-radius: 4px;
+}
+.Link{
+	margin-left: 3%;
+	font-size: 34px;
 }
 .logout{
 	position: absolute;
