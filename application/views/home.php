@@ -58,6 +58,9 @@
 					<th>last_name</th>
 					<th>phone</th>
 					<th>email</th>
+					<th>property</th>
+					<th>unit_id</th>
+
 				</tr>
 				<?php foreach($tenants as $tenant): ?>
 					<tr>
@@ -66,6 +69,9 @@
 						<td><?php echo $tenant['last_name']; ?></td>
 						<td><?php echo $tenant['phone']; ?></td>
 						<td><?php echo $tenant['email']; ?></td>
+						<td><?php echo $tenant['address'] . " " . $tenant['city']; ?></td>
+						<td><?php echo $tenant['unit_id']; ?></td>
+
 					</tr>
 				<?php endforeach; ?>
 			</table>

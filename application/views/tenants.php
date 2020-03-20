@@ -1,9 +1,6 @@
-<?php foreach ($properties as $key => $value) {
-	echo print_r($properties[$key]);
-	//echo $properties[$key]['property_id'];
-	echo "<br>";
-} ?>
-<?php //echo print_r($properties); ?>
+<?php
+//echo print_r($properties);
+?>
 <div class="container">
 	<h1 style="text-align: center;">Tenants</h1>
 	<div class="wrapper_1">
@@ -75,6 +72,30 @@
 	<div class="wrapper_2">
 		<div class="box_second_row">
 			<p>view and update</p>
+			<table class="renter-table">
+				<tr>
+					<th>user_id</th>
+					<th>first_name</th>
+					<th>last_name</th>
+					<th>phone</th>
+					<th>email</th>
+					<th>property</th>
+					<th>unit_id</th>
+
+				</tr>
+				<?php foreach($tenants as $tenant): ?>
+					<tr>
+						<td><?php echo $tenant['user_id']; ?></td>
+						<td><?php echo $tenant['first_name']; ?></td>
+						<td><?php echo $tenant['last_name']; ?></td>
+						<td><?php echo $tenant['phone']; ?></td>
+						<td><?php echo $tenant['email']; ?></td>
+						<td><?php echo $tenant['address'] . " " . $tenant['city']; ?></td>
+						<td><?php echo $tenant['unit_id']; ?></td>
+
+					</tr>
+				<?php endforeach; ?>
+			</table>
 		</div>
 
 	</div>

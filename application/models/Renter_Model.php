@@ -11,12 +11,14 @@ class Renter_Model extends CI_Model{
         $row=$results->row_array();
         $user_id=$row["user_id"];
         
-        $sql1="select p.property_id, p.address, p.city, p.state, p.zip, p.country, p.rent_income, p.recurring_expenses FROM users u join user_properties up on u.user_id=$user_id join properties p on p.property_id=up.property_id";
+        $sql1="SELECT DISTINCT p.property_id, p.address, p.city, p.state, p.zip, p.country, p.rent_income, p.recurring_expenses, p.num_units, p.upkeep_cost FROM users u JOIN user_properties up ON u.user_id=$user_id JOIN properties p ON p.property_id=up.property_id";
         $result=$this->db->query($sql1);
         return $result->result_array();
     }
     public function get_tenants(){
-        $sql2="SELECT users.user_id, users.first_name, users.last_name, users.phone, users.email FROM users INNER JOIN user_properties USING (user_id)";
+        $sql2="SELECT u.user_id, u.first_name, u.last_name, u.phone, u.email, up.unit_id, p.address, p.city FROM users u
+        INNER JOIN user_properties up ON u.user_id=up.user_id AND up.unit_id IS NOT NULL
+        JOIN properties p USING (property_id)";
         $results=$this->db->query($sql2);
         return $results->result_array();
     }
@@ -83,40 +85,45 @@ class Renter_Model extends CI_Model{
     }
     public function update_property(){
         $property_id=$this->input->post("property_select");        
-        if($address=$this->input->post("new_address")){
-            $sql="update properties set address='$address' where property_id=$property_id";
-            if($this->db->query($sql)){
-                //echo "success";
+        $update_string = "";
+        foreach ($this->input->post() as $key => $value) {
+            if($value != "" && $key != "property_select" && $key != "submit"){
+                $update_string .= $key. " = '".$value."', ";
             }
         }
-        if($city=$this->input->post("new_city")){
-            $sql="update properties set city='$city' where property_id=$property_id";
-            if($this->db->query($sql)){
-                //echo "success";
-            }
+        $update_string = substr($update_string, 0, -2);
+        $sql = "UPDATE properties SET $update_string WHERE property_id='$property_id'";
+        //return $sql;
+        $result = $this->db->query($sql);
+        if($result){
+            return 1;
         }
-        if($state=$this->input->post("new_state")){
-            $sql="update properties set state='$state' where property_id=$property_id";
-            if($this->db->query($sql)){
-                //echo "success";
-            }
+        else{
+            return 0;
         }
-        if($zip=$this->input->post("new_zip")){
-            $sql="update properties set zip='$zip' where property_id=$property_id";
-            if($this->db->query($sql)){
-                //echo "success";
-            }
-        }            
     }
     public function getUnitsAndProperties(){
         $user_id=$this->session->userdata('user_id');
-        
+
+        //Get the already Occupied Units
+        $sql="SELECT unit_id FROM user_properties WHERE unit_id IS NOT NULL";
+        $occupied_units = $this->db->query($sql);
+        $unit_str = "";
+
+        //Create a string that can be used for the IN part of the sql query below
+        foreach ($occupied_units->result() as $unit) {
+            $unit_str .= $unit->unit_id . ",";
+        }
+        //Take out the final comma
+        $unit_str = substr($unit_str, 0, -1);
+        //Select all the available properties and units
         $sql="
-        SELECT p.property_id, p.address, p.city, p.state, p.zip, p.country, p.rent_income, p.recurring_expenses, un.unit_id, un.unit_num, un.rent FROM users u 
-        JOIN user_properties up ON u.user_id=$user_id 
+        SELECT DISTINCT p.property_id, p.address, p.city, p.state, p.zip, p.country, p.rent_income, p.recurring_expenses, un.unit_id, un.unit_num, un.rent, up.user_id FROM users u 
+        JOIN user_properties up ON u.user_id=$user_id
         JOIN properties p ON p.property_id=up.property_id
-        JOIN units un ON un.property_id=up.property_id";
+        JOIN units un ON un.property_id=up.property_id AND up.unit_id IS NULL AND un.unit_id NOT IN ($unit_str)";
         $result=$this->db->query($sql);
+        //Return the result
         return $result->result_array();
     }
     public function registerTenant(){
@@ -125,10 +132,26 @@ class Renter_Model extends CI_Model{
         $user_id = $this->Authentication_Model->registerRentee();
         $unit_id = $this->input->post($this->input->post("unit_chosen"));
         $property_id = $this->input->post("property_id");
+        $sql="SELECT p.rent_income, un.rent FROM user_properties up
+        JOIN properties p ON p.property_id=up.property_id AND p.property_id='$property_id'
+        JOIN units un ON un.property_id=p.property_id AND un.unit_id='$unit_id'";
+        $property = $this->db->query($sql);
+        $unit_rent = $property->row()->rent;
+        $property_rental_income = $property->row()->rent_income;
+
         $sql = "INSERT INTO user_properties(user_id, unit_id, property_id) VALUES('$user_id', '$unit_id', '$property_id')";
         $result=$this->db->query($sql);
         if ($result) {
-            return 1;
+            if($property_rental_income === null){
+                $sql = "UPDATE properties SET rent_income = '$unit_rent' WHERE property_id = '$property_id'";
+                $this->db->query($sql);
+                return 1;
+            }
+            else{
+                $sql = "UPDATE properties SET rent_income = rent_income + '$unit_rent' WHERE property_id = '$property_id'";
+                $this->db->query($sql);
+                return 1;
+            }
         }
         else{
             return 0;
