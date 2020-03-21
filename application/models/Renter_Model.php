@@ -24,7 +24,7 @@ class Renter_Model extends CI_Model{
     }
     public function get_requests(){
         $user=$this->session->userdata('username');
-        $sql5="select user_id from users where username='$user'";
+        $sql5="select distinct user_id from users where username='$user'";
         $results=$this->db->query($sql5);
         $row=$results->row_array();
         $user_id=$row["user_id"];
