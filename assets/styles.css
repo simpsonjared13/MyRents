@@ -1,0 +1,183 @@
+
+html,body{
+	background-image: url(/MyRents/assets/Pictures/MainHouse.jpg);
+	background-size: 100% 100%;
+	margin: 0px;
+	height: 100%;
+}
+
+.container{
+  margin-top: 2%;
+  height: 80%;
+}
+h1{
+	text-align: center;
+	font-size: 80px;
+	color: white;
+	text-shadow: 2px 2px 4px #000000;
+	/*margin-top: 15%;*/
+}
+.Register{
+	margin-left: 44%
+}
+.Register input{
+	margin:20px;
+	padding: 10px;
+	width: fit-content;
+}
+.Register input[type=submit]{
+	margin-left: 5%;
+	color: white;
+	background-color: #f0ab36;
+	padding: 15px 32px;
+	font-size: 14px;
+	boarder-radius: 4px;
+}
+.Link{
+	margin-left: 3%;
+	font-size: 34px;
+}
+.logout{
+	position: absolute;
+    top: 0;
+    right: 0;
+}
+
+/* Navbar container */
+.navbar {
+  overflow: hidden;
+  background-color: #333;
+  font-family: Arial;
+}
+
+/* Links inside the navbar */
+.navbar a {
+  float: left;
+  font-size: 16px;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+
+/* The dropdown container */
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+/* Dropdown button */
+.dropdown .dropbtn {
+  font-size: 16px;
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit; /* Important for vertical align on mobile phones */
+  margin: 0; /* Important for vertical align on mobile phones */
+}
+
+/* Add a red background color to navbar links on hover */
+.navbar a:hover, .dropdown:hover .dropbtn {
+  background-color: red;
+}
+
+/* Dropdown content (hidden by default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+/* Add a grey background color to dropdown links on hover */
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+
+
+
+.wrapper_1{
+	width: 100%; 
+	height: 37.736%;
+}
+
+.wrapper_2{
+	width: 100%; 
+	height: 37.736%;
+}
+
+.homepage_box_left {
+	background: #ffffff;
+	border: solid;
+	padding: 10px;
+	margin-left: 5%;
+	float: left;
+	width: 41.7%;
+	height: 83.5%;
+	overflow: auto;
+	border-radius: 10px;
+	box-shadow: 5px 5px 10px black;
+}
+
+.homepage_box_right{
+	background: #ffffff;
+	border: solid;
+	margin-right: 5%; 
+	padding: 10px;
+	float: right;
+	width: 41.7%;
+	height: 83.5%;
+	overflow: auto;
+	border-radius: 10px;
+	box-shadow: 5px 5px 10px black;
+}
+
+.box_first_row {
+	background: #cecece;
+	border: solid;
+	padding: 10px;
+	margin-left: 5%;
+	margin-right: 5%;
+	float: left;
+	width: 90%;
+	height: fit-content;
+	overflow: auto;
+	border-radius: 10px;
+	box-shadow: 5px 5px 10px black;
+	margin-bottom: 3%;
+}
+
+.box_second_row{
+	background: #cecece;
+	border: solid;
+	padding: 10px;
+	margin-left: 5%;
+	margin-right: 5%;
+	float: left;
+	width: 90%;
+	height: 83.5%;
+	overflow: auto;
+	border-radius: 10px;
+	box-shadow: 5px 5px 10px black;
+}
