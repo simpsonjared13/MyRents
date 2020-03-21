@@ -123,6 +123,7 @@ class Renter extends CI_Controller {
 			$this->load->view('home', $data);
 			$this->load->view('templates/footer');
 		}
+
 	}
 	public function finances(){
 		if($this->session->userdata('username') == null)
