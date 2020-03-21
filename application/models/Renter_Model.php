@@ -29,7 +29,7 @@ class Renter_Model extends CI_Model{
         $row=$results->row_array();
         $user_id=$row["user_id"];
         
-        $sql="select r.request_id, r.unit_id, r.request_type, r.comments FROM requests r join user_properties up on up.user_id=$user_id join properties p on p.property_id=up.property_id";
+        $sql="select distinct r.request_id, r.unit_id, r.request_type, r.comments FROM requests r join user_properties up on up.user_id=$user_id join properties p on p.property_id=up.property_id";
         $result=$this->db->query($sql);
         return $result->result_array();
     }

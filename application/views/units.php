@@ -5,9 +5,9 @@
 			<p>view units</p>
             <form method="POST">
             Select Property ID: <select id="property_select" name="property_id">
-		    <option value="property_id">Select Property</option>
+		    <option name="property_id">Select Property</option>
 		        <?php foreach($properties as $property): ?>
-			        <option name="<?php echo $property['property_id']; ?>"><?php echo $property['property_id']; ?> </option>
+			        <option value="<?php echo $property['property_id']; ?>"><?php echo $property['property_id']; ?> </option>
 		        <?php endforeach; ?>
 	        </select>
             <input type="submit" name="submit" value="go">
