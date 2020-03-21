@@ -28,7 +28,7 @@
 					'<select name="property_id" id="property" onchange="changeUnits()">
 						<option  value="'. $properties[$key]['property_id'] .'">'.$properties[$key]['address'].' '.$properties[$key]['city'].'</option>';
 					$unit_select_string .= 
-					'<select name="select_unit_prop_id_'. $properties[$key]['property_id'] .'" id="unit_'. $properties[$key]['property_id'] .'" style="display:inline-block;">
+					'Unit Number: <select name="select_unit_prop_id_'. $properties[$key]['property_id'] .'" id="unit_'. $properties[$key]['property_id'] .'" style="display:inline-block;">
 						<option value="'. $properties[$key]['unit_id'] .'">'.$properties[$key]['unit_num'].'</option>';
 				}
 				//If the unit belongs to the same property
