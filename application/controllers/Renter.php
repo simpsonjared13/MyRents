@@ -107,9 +107,11 @@ class Renter extends CI_Controller {
 			echo "You are not logged in, please go to the <a href='http://localhost/MyRents/Renter/login'>login page</a>";
 		}
 		else if($this->session->userdata('unit_id') != null){
+			$this->load->model('Tenant_Model');
+			$data['requests']=$this->Tenant_Model->tenant_get_requests();
 			$this->load->view('tenants/header');
 			$this->load->view('tenants/nav');
-			$this->load->view('tenants/home');
+			$this->load->view('tenants/home', $data);
 			$this->load->view('tenants/footer');
 		}
 		else{
@@ -239,6 +241,52 @@ class Renter extends CI_Controller {
 				$this->load->view('templates/nav');
 				echo "error";
 				$this->load->view('templates/footer');
+			}
+		}
+	}
+	public function create_request(){
+		if($this->session->userdata('username') == null)
+		{
+			echo "You are not logged in, please go to the <a href='http://localhost/MyRents/Renter/login'>login page</a>";
+		}
+		else{
+			$this->load->model('Tenant_Model');
+			$result = $this->Tenant_Model->create_request();
+			if($result == 1){
+				redirect('Renter/home');
+				}
+			else{
+				echo "FAILED";
+			}
+		}
+	}
+	public function complete_request(){
+		if($this->session->userdata('username') == null)
+		{
+			echo "You are not logged in, please go to the <a href='http://localhost/MyRents/Renter/login'>login page</a>";
+		}
+		else{
+			$result = $this->Renter_Model->complete_request();
+			if($result == 1){
+				redirect('Renter/home');
+				}
+			else{
+				echo "FAILED";
+			}
+		}
+	}
+	public function update_unit(){
+		if($this->session->userdata('username') == null)
+		{
+			echo "You are not logged in, please go to the <a href='http://localhost/MyRents/Renter/login'>login page</a>";
+		}
+		else{
+			$result = $this->Renter_Model->update_unit();
+			if($result == 1){
+				redirect('Renter/units');
+				}
+			else{
+				echo "FAILED";
 			}
 		}
 	}

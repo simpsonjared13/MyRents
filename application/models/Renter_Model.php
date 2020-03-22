@@ -29,7 +29,7 @@ class Renter_Model extends CI_Model{
         $row=$results->row_array();
         $user_id=$row["user_id"];
         
-        $sql="select distinct r.request_id, r.unit_id, r.request_type, r.comments FROM requests r join user_properties up on up.user_id=$user_id join properties p on p.property_id=up.property_id";
+        $sql="select distinct r.request_id, r.unit_id, r.request_type, r.comments, r.date_completed FROM requests r join user_properties up on up.user_id=$user_id join properties p on p.property_id=up.property_id and r.date_completed is null";
         $result=$this->db->query($sql);
         return $result->result_array();
     }
@@ -158,6 +158,39 @@ class Renter_Model extends CI_Model{
                 $this->db->query($sql);
                 return 1;
             }
+        }
+        else{
+            return 0;
+        }
+    }
+    public function complete_request(){
+        $request_id=$this->input->post('request_select');
+        $request_cost=$this->input->post('request_cost');
+        $sql="select unit_id from requests where request_id='$request_id'";
+        $results=$this->db->query($sql);
+        $row=$results->row_array();
+        $unit_id=$row["unit_id"];
+        $timestamp=@date('Y-m-d H:i:s');
+        $sql2="update requests set request_cost=$request_cost, date_completed='$timestamp' where request_id='$request_id'";
+        $sql3="update units set request_active=0 where unit_id='$unit_id'";
+        if($this->db->query($sql2)){
+            if($this->db->query($sql3)){
+                return 1;
+            }
+            else{
+                return 0;
+            }
+        }
+        else{
+            return 0;
+        }
+    }
+    public function update_unit(){
+        $unit_id=$this->input->post('unit_id');
+        $rent=$this->input->post('rent');
+        $sql="update units set rent=$rent where unit_id='$unit_id'";
+        if($this->db->query($sql)){
+            return 1;
         }
         else{
             return 0;
