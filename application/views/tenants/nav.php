@@ -1,5 +1,6 @@
 <div class="navbar">
   <a href="home">Home</a>
+  <a href="payments">Payments</a>
 <!--   <a href="finances">Finances</a>
  --><!--   <a href="tenants">Tenants</a>
  --><!--   <a href="properties">Properties</a>

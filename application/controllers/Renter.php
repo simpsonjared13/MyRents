@@ -242,4 +242,26 @@ class Renter extends CI_Controller {
 			}
 		}
 	}
+
+
+
+	/*
+	
+		ONLY TENANT FUNCTIONS BELOW THIS POINT
+	
+	*/
+	public function payments(){
+		if($this->session->userdata('username') == null)
+		{
+			echo "You are not logged in, please go to the <a href='http://localhost/MyRents/Renter/login'>login page</a>";
+		}
+		else{
+			// $data['properties']=$this->Renter_Model->getUnitsAndProperties();
+			// $data['tenants']=$this->Renter_Model->get_tenants();
+			$this->load->view('tenants/header');
+			$this->load->view('tenants/nav');
+			$this->load->view('tenants/payments');
+			$this->load->view('tenants/footer');
+		}
+	}
 }
