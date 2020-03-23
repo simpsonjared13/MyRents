@@ -282,20 +282,6 @@ class Renter extends CI_Controller {
 		ONLY TENANT FUNCTIONS BELOW THIS POINT
 	
 	*/
-	public function payments(){
-		if($this->session->userdata('username') == null)
-		{
-			echo "You are not logged in, please go to the <a href='http://localhost/MyRents/Renter/login'>login page</a>";
-		}
-		else{
-			$this->load->model('Tenant_Model');
-			$data["payments"] = $this->Tenant_Model->get_payments();
-			$this->load->view('tenants/header');
-			$this->load->view('tenants/nav');
-			$this->load->view('tenants/payments', $data);
-			$this->load->view('tenants/footer');
-		}
-	}
 
 	public function create_request(){
 		if($this->session->userdata('username') == null)
@@ -310,6 +296,52 @@ class Renter extends CI_Controller {
 				}
 			else{
 				echo "FAILED";
+			}
+		}
+	}
+	public function payments(){
+		if($this->session->userdata('username') == null)
+		{
+			echo "You are not logged in, please go to the <a href='http://localhost/MyRents/Renter/login'>login page</a>";
+		}
+		else{
+			$this->load->model('Tenant_Model');
+			$data["payments"] = $this->Tenant_Model->get_payments();
+			$this->load->view('tenants/header');
+			$this->load->view('tenants/nav');
+			$this->load->view('tenants/payments', $data);
+			$this->load->view('tenants/footer');
+		}
+	}
+	public function payRent(){
+		if($this->session->userdata('username') == null)
+		{
+			echo "You are not logged in, please go to the <a href='http://localhost/MyRents/Renter/login'>login page</a>";
+		}
+		else{
+			$this->load->model('Tenant_Model');
+			$data["billing"] = $this->Tenant_Model->get_tenants_billing_address();
+			$arr = array("payment_id" => $this->input->get("payment_id"), "rent" => $this->input->get("rent"));
+			$data["payment"] = $arr;
+			$this->load->view('tenants/header');
+			$this->load->view('tenants/nav');
+			$this->load->view('tenants/pay_rent', $data);
+			$this->load->view('tenants/footer');
+		}
+	}
+	public function payRentFinalize(){
+		if($this->session->userdata('username') == null)
+		{
+			echo "You are not logged in, please go to the <a href='http://localhost/MyRents/Renter/login'>login page</a>";
+		}
+		else{
+			$this->load->model('Tenant_Model');
+			$result = $this->Tenant_Model->payRentFinalize();
+			if($result){
+				redirect("Renter/payments");
+			}
+			else{
+				echo "There was an error";
 			}
 		}
 	}

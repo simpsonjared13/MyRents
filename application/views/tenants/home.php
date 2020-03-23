@@ -26,6 +26,11 @@
 					<td><?php echo $rentDue->format("m/d/y"); ?></td>
 				</tr>
 			</table>
+			<form method="GET" action="payRent">
+				<input type="text" name="payment_id" value="<?php echo $payments[0]["payment_id"] ?>" hidden>
+				<input type="text" name="rent" value="<?php echo $payments[0]["rent"] ?>" hidden>
+				<input type="submit" name="submit" value="Proceed to Pay">
+			</form>
 
 
 		</div>

@@ -28,7 +28,6 @@ class Tenant_Model extends CI_Model{
 
     public function get_next_payment(){
         $user_id = $this->session->userdata['user_id'];
-        //p.amount_paid, p.date_paid
         $currentDateTime = new DateTime();
         $currentDateTime->modify($currentDateTime->format("Y-m"));
         $currentDateTime->modify("-1 day");
@@ -47,20 +46,27 @@ class Tenant_Model extends CI_Model{
     }
     public function get_payments(){
         $user_id = $this->session->userdata['user_id'];
-        //p.amount_paid, p.date_paid
-        // $currentDateTime = new DateTime();
-        // $currentDateTime->modify($currentDateTime->format("Y-m"));
-        // $currentDateTime->modify("-1 day");
 
-        // $currentDateTime = $currentDateTime->format("Y-m-d h:m:s");
-
-        // $rentDue = new DateTime();
-        // $rentDue->modify("+1 month");
-        // $rentDue->modify($rentDue->format("Y-m"));
-        // $rentDue = $rentDue->format("Y-m-d h:m:s");
         $sql = "SELECT p.amount_paid, p.date_paid, u.rent, p.payment_id FROM payments p
         JOIN user_properties up ON p.user_id=up.user_id AND p.user_id='$user_id'
         JOIN units u ON u.unit_id=up.unit_id";
+        $result = $this->db->query($sql);
+        return $result;
+    }
+    public function get_tenants_billing_address(){
+        $user_id = $this->session->userdata['user_id'];
+        $sql = "SELECT p.address, p.city, p.state, p.country, p.zip FROM properties p
+        JOIN user_properties up ON p.property_id = up.property_id AND up.user_id='$user_id'";
+        $result = $this->db->query($sql);
+        return $result->row();
+    }
+    public function payRentFinalize(){
+        $user_id = $this->session->userdata['user_id'];
+        $rent = $this->input->post("rent");
+        $currentDateTime = new DateTime();
+        $currentDateTime = $currentDateTime->format("Y-m-d h:m:s");
+
+        $sql = "INSERT INTO payments(user_id, amount_paid, date_paid) VALUES('$user_id','$rent','$currentDateTime')";
         $result = $this->db->query($sql);
         return $result;
     }
