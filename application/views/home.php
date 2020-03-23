@@ -79,7 +79,7 @@
 		</div>
 
 		<div class="homepage_box_right">
-			<p>requests</p>
+			<p>active requests</p>
 			<table class="renter-table">
 				<tr>
 					<th>request_id</th>
@@ -96,7 +96,19 @@
 					</tr>
 				<?php endforeach; ?>
 			</table>
-
+			<p>Complete Request</p>
+			<form name="complete_request" method="POST" action="complete_request">
+				Select Request ID: <select id="request_select" name="request_select">
+					<option value="">Select Request</option>
+					<?php foreach($requests as $reqest): ?>
+						<option name="<?php echo $request['request_id']; ?>"><?php echo $request['request_id']; ?> </option>
+					<?php endforeach; ?>
+				</select>
+				<br>
+				Cost of Request: <input type="number" name="request_cost"></input>
+				<br>
+				<input type="submit" name="submit" value="Complete">
+			</form>
 		</div>
 	</div>
 </div>
