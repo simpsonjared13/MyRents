@@ -1,7 +1,32 @@
 <div class="container">
 	<div class="wrapper_1">
 		<div class="homepage_box_left">
-			<p>Payments</p>
+			<?php 
+			$currentDateTime = new DateTime();
+			$lastPayment = new DateTime($payments[0]["date_paid"]);
+			$rentDue = new DateTime();
+			$rentDue->modify("+1 month");
+			$rentDue->modify($rentDue->format("Y-m"));
+
+
+			//if($currentDateTime > )
+			//echo "<p>" . $lastPayment->format("m/d/y") . "</p>";
+			// echo "<p>" . $rentDue->format("m/d/y") . "</p>";
+			// echo "<p>" . $currentDateTime->format("Y-m-d h:m:s") . "</p>";
+			?>
+			<h3>Next Rent Due Date</h3>
+			<?php echo print_r($payments); ?>
+			<table>
+				<tr>
+					<th>Rent Due</th>
+					<th>Date Due</th>
+				</tr>
+				<tr>
+					<td><?php echo $payments[0]["rent"]; ?></td>
+					<td><?php echo $rentDue->format("m/d/y"); ?></td>
+				</tr>
+			</table>
+
 
 		</div>
 

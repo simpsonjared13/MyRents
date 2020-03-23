@@ -25,5 +25,44 @@ class Tenant_Model extends CI_Model{
         $results=$this->db->query($sql);
         return $results->result_array();
     }
+
+    public function get_next_payment(){
+        $user_id = $this->session->userdata['user_id'];
+        //p.amount_paid, p.date_paid
+        $currentDateTime = new DateTime();
+        $currentDateTime->modify($currentDateTime->format("Y-m"));
+        $currentDateTime->modify("-1 day");
+
+        $currentDateTime = $currentDateTime->format("Y-m-d h:m:s");
+
+        $rentDue = new DateTime();
+        $rentDue->modify("+1 month");
+        $rentDue->modify($rentDue->format("Y-m"));
+        $rentDue = $rentDue->format("Y-m-d h:m:s");
+        $sql = "SELECT p.amount_paid, p.date_paid, u.rent, p.payment_id FROM payments p
+        JOIN user_properties up ON p.user_id=up.user_id AND p.user_id='$user_id'
+        JOIN units u ON u.unit_id=up.unit_id AND p.date_paid < '$rentDue' AND p.date_paid >= '$currentDateTime'";
+        $result = $this->db->query($sql);
+        return $result->result_array();
+    }
+    public function get_payments(){
+        $user_id = $this->session->userdata['user_id'];
+        //p.amount_paid, p.date_paid
+        // $currentDateTime = new DateTime();
+        // $currentDateTime->modify($currentDateTime->format("Y-m"));
+        // $currentDateTime->modify("-1 day");
+
+        // $currentDateTime = $currentDateTime->format("Y-m-d h:m:s");
+
+        // $rentDue = new DateTime();
+        // $rentDue->modify("+1 month");
+        // $rentDue->modify($rentDue->format("Y-m"));
+        // $rentDue = $rentDue->format("Y-m-d h:m:s");
+        $sql = "SELECT p.amount_paid, p.date_paid, u.rent, p.payment_id FROM payments p
+        JOIN user_properties up ON p.user_id=up.user_id AND p.user_id='$user_id'
+        JOIN units u ON u.unit_id=up.unit_id";
+        $result = $this->db->query($sql);
+        return $result;
+    }
 }
 ?>

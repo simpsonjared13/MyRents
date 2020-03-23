@@ -13,7 +13,30 @@
 
 	<div class="wrapper_2">
 		<div class="box_second_row">
-			<p>view payments</p>
+			<h3>View Payments</h3>
+			<?php //echo print_r($payments->result()); ?>
+			<table>
+				<tr>
+					<th>Date Paid</th>
+					<th>Amount Paid</th>
+				</tr>
+			<?php
+			foreach ($payments->result() as $row) {
+				$date = new DateTime($row->date_paid);
+
+
+			?>
+				<tr>
+					<td><?php echo $date->format("m/d/y"); ?></td>
+					<td><?php echo $row->amount_paid; ?></td>
+
+						
+				</tr>
+
+			<?php		
+			}
+			?>
+			</table>
 
 		</div>
 

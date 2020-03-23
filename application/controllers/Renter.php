@@ -109,6 +109,7 @@ class Renter extends CI_Controller {
 		else if($this->session->userdata('unit_id') != null){
 			$this->load->model('Tenant_Model');
 			$data['requests']=$this->Tenant_Model->tenant_get_requests();
+			$data['payments']=$this->Tenant_Model->get_next_payment();
 			$this->load->view('tenants/header');
 			$this->load->view('tenants/nav');
 			$this->load->view('tenants/home', $data);
@@ -287,11 +288,11 @@ class Renter extends CI_Controller {
 			echo "You are not logged in, please go to the <a href='http://localhost/MyRents/Renter/login'>login page</a>";
 		}
 		else{
-			// $data['properties']=$this->Renter_Model->getUnitsAndProperties();
-			// $data['tenants']=$this->Renter_Model->get_tenants();
+			$this->load->model('Tenant_Model');
+			$data["payments"] = $this->Tenant_Model->get_payments();
 			$this->load->view('tenants/header');
 			$this->load->view('tenants/nav');
-			$this->load->view('tenants/payments');
+			$this->load->view('tenants/payments', $data);
 			$this->load->view('tenants/footer');
 		}
 	}
