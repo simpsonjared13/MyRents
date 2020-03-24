@@ -65,8 +65,9 @@ class Tenant_Model extends CI_Model{
         $rent = $this->input->post("rent");
         $dueDate = new DateTime($this->input->post("due_date"));
         $dueDate = $dueDate->format("Y-m-d h:m:s");
+        $unit_id = $this->session->userdata['unit_id'];
 
-        $sql = "INSERT INTO payments(user_id, amount_paid, date_paid) VALUES('$user_id','$rent','$dueDate')";
+        $sql = "INSERT INTO payments(user_id, unit_id, amount_paid, date_paid) VALUES('$user_id', 'unit_id', '$rent','$dueDate')";
         $result = $this->db->query($sql);
         return $result;
     }
