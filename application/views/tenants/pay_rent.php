@@ -1,6 +1,6 @@
 <?php
-echo print_r($payment);
-echo print_r($billing);
+//echo print_r($payment);
+//echo print_r($billing);
 ?>
 <div class="container">
 	<h1 style="text-align: center;">Payments</h1>
@@ -21,6 +21,8 @@ echo print_r($billing);
 
 				<input type="text" name="payment_id" value="<?php echo $payment['payment_id'] ?>" hidden>
 				<input type="text" name="rent" value="<?php echo $payment['rent'] ?>" hidden>
+				<input type="text" name="due_date" value="<?php echo $payment['due_date'] ?>" hidden>
+
 
 				<input type="submit" name="submit" value="Pay">
 			</form>

@@ -329,7 +329,7 @@ class Renter extends CI_Controller {
 		else{
 			$this->load->model('Tenant_Model');
 			$data["billing"] = $this->Tenant_Model->get_tenants_billing_address();
-			$arr = array("payment_id" => $this->input->get("payment_id"), "rent" => $this->input->get("rent"));
+			$arr = array("payment_id" => $this->input->get("payment_id"), "rent" => $this->input->get("rent"), "due_date" => $this->input->get("due_date"));
 			$data["payment"] = $arr;
 			$this->load->view('tenants/header');
 			$this->load->view('tenants/nav');

@@ -1,10 +1,12 @@
 <div class="container">
 	<div class="wrapper_1">
 		<div class="homepage_box_left">
-			<?php 
+			<?php
+
+			$lastPay = array_pop($payments);
 			$currentDateTime = new DateTime();
-			$lastPayment = new DateTime($payments[0]["date_paid"]);
-			$rentDue = new DateTime();
+			$lastPayment = new DateTime($lastPay["date_paid"]);
+			$rentDue = new DateTime($lastPayment->format("Y-m-d h:m:s"));
 			$rentDue->modify("+1 month");
 			$rentDue->modify($rentDue->format("Y-m"));
 
@@ -15,20 +17,21 @@
 			// echo "<p>" . $currentDateTime->format("Y-m-d h:m:s") . "</p>";
 			?>
 			<h3>Next Rent Due Date</h3>
-			<?php echo print_r($payments); ?>
+			<?php //echo print_r($payments); ?>
 			<table>
 				<tr>
 					<th>Rent Due</th>
 					<th>Date Due</th>
 				</tr>
 				<tr>
-					<td><?php echo $payments[0]["rent"]; ?></td>
+					<td><?php echo $lastPay["rent"]; ?></td>
 					<td><?php echo $rentDue->format("m/d/y"); ?></td>
 				</tr>
 			</table>
 			<form method="GET" action="payRent">
-				<input type="text" name="payment_id" value="<?php echo $payments[0]["payment_id"] ?>" hidden>
-				<input type="text" name="rent" value="<?php echo $payments[0]["rent"] ?>" hidden>
+				<input type="text" name="payment_id" value="<?php echo $lastPay["payment_id"] ?>" hidden>
+				<input type="text" name="rent" value="<?php echo $lastPay["rent"] ?>" hidden>
+				<input type="text" name="due_date" value="<?php echo $rentDue->format("Y-m-d h:m:s") ?>" hidden>
 				<input type="submit" name="submit" value="Proceed to Pay">
 			</form>
 

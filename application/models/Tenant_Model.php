@@ -28,19 +28,19 @@ class Tenant_Model extends CI_Model{
 
     public function get_next_payment(){
         $user_id = $this->session->userdata['user_id'];
-        $currentDateTime = new DateTime();
-        $currentDateTime->modify($currentDateTime->format("Y-m"));
-        $currentDateTime->modify("-1 day");
+        // $currentDateTime = new DateTime();
+        // $currentDateTime->modify($currentDateTime->format("Y-m"));
+        // $currentDateTime->modify("-1 day");
 
-        $currentDateTime = $currentDateTime->format("Y-m-d h:m:s");
+        // $currentDateTime = $currentDateTime->format("Y-m-d h:m:s");
 
-        $rentDue = new DateTime();
-        $rentDue->modify("+1 month");
-        $rentDue->modify($rentDue->format("Y-m"));
-        $rentDue = $rentDue->format("Y-m-d h:m:s");
+        // $rentDue = new DateTime();
+        // $rentDue->modify("+1 month");
+        // $rentDue->modify($rentDue->format("Y-m"));
+        // $rentDue = $rentDue->format("Y-m-d h:m:s");
         $sql = "SELECT p.amount_paid, p.date_paid, u.rent, p.payment_id FROM payments p
         JOIN user_properties up ON p.user_id=up.user_id AND p.user_id='$user_id'
-        JOIN units u ON u.unit_id=up.unit_id AND p.date_paid < '$rentDue' AND p.date_paid >= '$currentDateTime'";
+        JOIN units u ON u.unit_id=up.unit_id";// AND p.date_paid < '$rentDue' AND p.date_paid >= '$currentDateTime'";
         $result = $this->db->query($sql);
         return $result->result_array();
     }
@@ -63,10 +63,10 @@ class Tenant_Model extends CI_Model{
     public function payRentFinalize(){
         $user_id = $this->session->userdata['user_id'];
         $rent = $this->input->post("rent");
-        $currentDateTime = new DateTime();
-        $currentDateTime = $currentDateTime->format("Y-m-d h:m:s");
+        $dueDate = new DateTime($this->input->post("due_date"));
+        $dueDate = $dueDate->format("Y-m-d h:m:s");
 
-        $sql = "INSERT INTO payments(user_id, amount_paid, date_paid) VALUES('$user_id','$rent','$currentDateTime')";
+        $sql = "INSERT INTO payments(user_id, amount_paid, date_paid) VALUES('$user_id','$rent','$dueDate')";
         $result = $this->db->query($sql);
         return $result;
     }

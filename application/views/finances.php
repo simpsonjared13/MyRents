@@ -1,5 +1,5 @@
 <?php
-echo print_r($finances->result());
+//echo print_r($finances->result());
 ?>
 <div class="container">
 	<h1 style="text-align: center;">Finances</h1>
