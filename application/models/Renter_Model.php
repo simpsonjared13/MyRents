@@ -44,6 +44,29 @@ class Renter_Model extends CI_Model{
         $result=$this->db->query($sql);
         return $result->result_array();
     }
+
+    public function get_full_finances(){
+        $user_id=$this->session->userdata('user_id');
+        $units = "SELECT u.unit_id FROM units u
+            JOIN user_properties up ON up.property_id=u.property_id AND up.user_id = '$user_id'";
+        $units=$this->db->query($units);
+
+
+        $unit_str = "";
+        foreach ($units->result() as $row) {
+            $unit_str .= $row->unit_id . ",";
+        }
+        $unit_str = substr($unit_str, 0, -1);
+
+//pm.amount_paid, pm.date_paid, u.first_name, u.last_name
+        $sql="SELECT pm.amount_paid, pm.date_paid, u.first_name, u.last_name, p.address, p.city, ut.unit_num FROM payments pm
+            JOIN user_properties up ON up.user_id=pm.user_id AND up.unit_id IN ($unit_str)
+            JOIN users u ON up.user_id=u.user_id AND u.user_id !='$user_id' AND up.unit_id IN ($unit_str)
+            JOIN properties p ON up.property_id=p.property_id AND u.user_id !='$user_id' AND up.unit_id IN ($unit_str)
+            JOIN units ut ON up.unit_id=ut.unit_id";
+        $result=$this->db->query($sql);
+        return $result;
+    }
     public function get_units(){
         $user_id=$this->session->userdata('user_id');
         $sql="SELECT DISTINCT un.unit_id, un.property_id, un.unit_num, un.rent, un.request_active FROM users u JOIN user_properties up ON u.user_id=$user_id JOIN units un ON un.property_id=up.property_id;";

@@ -134,9 +134,10 @@ class Renter extends CI_Controller {
 			echo "You are not logged in, please go to the <a href='http://localhost/MyRents/Renter/login'>login page</a>";
 		}
 		else{
+			$data['finances']=$this->Renter_Model->get_full_finances();
 			$this->load->view('templates/header');
 			$this->load->view('templates/nav');
-			$this->load->view('finances');
+			$this->load->view('finances', $data);
 			$this->load->view('templates/footer');
 		}
 	}
