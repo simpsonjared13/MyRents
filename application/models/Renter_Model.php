@@ -16,7 +16,7 @@ class Renter_Model extends CI_Model{
         return $result->result_array();
     }
     public function get_tenants(){
-        $sql2="SELECT u.user_id, u.first_name, u.last_name, u.phone, u.email, up.unit_id, p.address, p.city FROM users u
+        $sql2="SELECT u.user_id, u.first_name, u.last_name, u.phone, u.email, up.unit_id, p.address, p.city, up.property_id FROM users u
         INNER JOIN user_properties up ON u.user_id=up.user_id AND up.unit_id IS NOT NULL
         JOIN properties p USING (property_id)";
         $results=$this->db->query($sql2);
@@ -148,7 +148,7 @@ class Renter_Model extends CI_Model{
         $sql = "INSERT INTO user_properties(user_id, unit_id, property_id) VALUES('$user_id', '$unit_id', '$property_id')";
         $result=$this->db->query($sql);
         if ($result) {
-            if($property_rental_income === null){
+            if($property_rental_income === null or $property_rental_income == 0){
                 $sql = "UPDATE properties SET rent_income = '$unit_rent' WHERE property_id = '$property_id'";
                 $this->db->query($sql);
                 return 1;
@@ -189,6 +189,23 @@ class Renter_Model extends CI_Model{
         $unit_id=$this->input->post('unit_id');
         $rent=$this->input->post('rent');
         $sql="update units set rent=$rent where unit_id='$unit_id'";
+        if($this->db->query($sql)){
+            return 1;
+        }
+        else{
+            return 0;
+        }
+    }
+    public function removeTenant(){
+        $user_id=$this->input->post('user_id');
+        $unit_id=$this->input->post('unit_id');
+        $property_id=$this->input->post('property_id');
+        $sql="DELETE FROM user_properties WHERE user_id='$user_id' AND  unit_id='$unit_id' AND property_id='$property_id'";
+        $this->db->query($sql);
+        $rent="SELECT rent FROM units WHERE unit_id='$unit_id'";
+        $rent=$this->db->query($rent);
+        $rent=$rent->row()->rent;
+        $sql="UPDATE properties SET rent_income = rent_income - '$rent'";
         if($this->db->query($sql)){
             return 1;
         }

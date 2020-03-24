@@ -225,17 +225,9 @@ class Renter extends CI_Controller {
 			echo "You are not logged in, please go to the <a href='http://localhost/MyRents/Renter/login'>login page</a>";
 		}
 		else{
-		// 	var_dump($this->input->post());
-		// 	echo "<br><br>";
-		// 	$unit_chosen = $this->input->post("unit_chosen");
-		// 	echo $this->input->post($unit_chosen);
-		// }
 			$result = $this->Renter_Model->registerTenant();
 			if($result == 1){
-				$this->load->view('templates/header');
-				$this->load->view('templates/nav');
-				//var_dump($this->input->post());
-				$this->load->view('templates/footer');
+				redirect("Renter/tenants");
 			}
 			else{
 				$this->load->view('templates/header');
@@ -270,6 +262,21 @@ class Renter extends CI_Controller {
 			$result = $this->Renter_Model->update_unit();
 			if($result == 1){
 				redirect('Renter/units');
+				}
+			else{
+				echo "FAILED";
+			}
+		}
+	}
+	public function removeTenant(){
+		if($this->session->userdata('username') == null)
+		{
+			echo "You are not logged in, please go to the <a href='http://localhost/MyRents/Renter/login'>login page</a>";
+		}
+		else{
+			$result = $this->Renter_Model->removeTenant();
+			if($result == 1){
+				redirect('Renter/tenants');
 				}
 			else{
 				echo "FAILED";

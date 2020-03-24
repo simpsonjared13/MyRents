@@ -1,5 +1,5 @@
 <?php
-//echo print_r($properties);
+//echo print_r($tenants);
 ?>
 <div class="container">
 	<h1 style="text-align: center;">Tenants</h1>
@@ -92,7 +92,12 @@
 						<td><?php echo $tenant['email']; ?></td>
 						<td><?php echo $tenant['address'] . " " . $tenant['city']; ?></td>
 						<td><?php echo $tenant['unit_id']; ?></td>
-
+						<form action="removeTenant" method="POST">
+							<input type="text" name="user_id" value="<?php echo $tenant['user_id']; ?>" hidden>
+							<input type="text" name="unit_id" value="<?php echo $tenant['unit_id']; ?>" hidden>
+							<input type="text" name="property_id" value="<?php echo $tenant['property_id']; ?>" hidden>
+							<td><input type="submit" name="submit" value="Remove Tenant"></td>
+						</form>
 					</tr>
 				<?php endforeach; ?>
 			</table>
