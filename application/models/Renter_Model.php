@@ -168,8 +168,10 @@ class Renter_Model extends CI_Model{
         $property_rental_income = $property->row()->rent_income;
 
         //Setting the due date to the first of this month
-        $dueDate = new DateTime();
-        $duteDate = $dueDate->modify("-3 years");
+        //Edit line below to set when tenant moved in
+        $dueDate = new DateTime("2010-1-1");
+
+        // $duteDate = $dueDate->modify("-3 years");
         $duteDate = $dueDate->modify($dueDate->format("Y-m"));
         $dueDate = $dueDate->format("Y-m-d h:m:s");
 
