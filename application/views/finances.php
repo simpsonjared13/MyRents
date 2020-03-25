@@ -1,5 +1,7 @@
 <?php
-//echo print_r($finances->result());
+//echo print_r($payments->result());
+echo print_r($finances->result());
+
 ?>
 <div class="container">
 	<h1 style="text-align: center;">Finances</h1>
@@ -22,7 +24,7 @@
 					<th>Amount Paid</th>
 					<th>Date Paid</th>
 				</tr>
-			<?php foreach ($finances->result() as $row) {
+			<?php foreach ($payments->result() as $row) {
 				$date = new DateTime($row->date_paid);
 			?>
 				<tr>

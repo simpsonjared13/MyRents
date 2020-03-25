@@ -34,18 +34,16 @@ class Renter_Model extends CI_Model{
         return $result->result_array();
     }
     public function get_finances(){
-        $user=$this->session->userdata('username');
-        $sql5="select user_id from users where username='$user'";
-        $results=$this->db->query($sql5);
-        $row=$results->row_array();
-        $user_id=$row["user_id"];
+        $user_id=$this->session->userdata('user_id');
 
-        $sql="select p.property_id, sum(r.request_cost) as requests_cost, sum(p.rent_income) as rent_total, sum(p.upkeep_cost) as upkeep_total from requests r join user_properties up on up.user_id=$user_id join properties p on p.property_id=up.property_id group by p.property_id";
+        $sql="SELECT p.upkeep_cost, p.rent_income, p.recurring_expenses, p.address, p.city FROM properties p
+        JOIN user_properties up ON up.property_id=p.property_id
+        WHERE up.user_id='$user_id'";
         $result=$this->db->query($sql);
-        return $result->result_array();
+        return $result;
     }
 
-    public function get_full_finances(){
+    public function get_payments(){
         $user_id=$this->session->userdata('user_id');
         $units = "SELECT u.unit_id FROM units u
             JOIN user_properties up ON up.property_id=u.property_id AND up.user_id = '$user_id'";
@@ -63,7 +61,8 @@ class Renter_Model extends CI_Model{
             JOIN user_properties up ON up.user_id=pm.user_id AND up.unit_id IN ($unit_str)
             JOIN users u ON up.user_id=u.user_id AND u.user_id !='$user_id' AND up.unit_id IN ($unit_str)
             JOIN properties p ON up.property_id=p.property_id AND u.user_id !='$user_id' AND up.unit_id IN ($unit_str)
-            JOIN units ut ON up.unit_id=ut.unit_id";
+            JOIN units ut ON up.unit_id=ut.unit_id
+            ORDER BY pm.date_paid, u.last_name DESC";
         $result=$this->db->query($sql);
         return $result;
     }
@@ -170,6 +169,7 @@ class Renter_Model extends CI_Model{
 
         //Setting the due date to the first of this month
         $dueDate = new DateTime();
+        $duteDate = $dueDate->modify("-3 years");
         $duteDate = $dueDate->modify($dueDate->format("Y-m"));
         $dueDate = $dueDate->format("Y-m-d h:m:s");
 
