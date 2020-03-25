@@ -137,22 +137,36 @@ class Renter_Model extends CI_Model{
         $sql="SELECT unit_id FROM user_properties WHERE unit_id IS NOT NULL";
         $occupied_units = $this->db->query($sql);
         $unit_str = "";
-
-        //Create a string that can be used for the IN part of the sql query below
-        foreach ($occupied_units->result() as $unit) {
-            $unit_str .= $unit->unit_id . ",";
+        //Checks that a unit is occupied
+        if($occupied_units->num_rows() > 0){
+            //Create a string that can be used for the IN part of the sql query below
+            foreach ($occupied_units->result() as $unit) {
+                $unit_str .= $unit->unit_id . ",";
+            }
+            //Take out the final comma
+            $unit_str = substr($unit_str, 0, -1);
+            //Select all the available properties and units
+            $sql="
+            SELECT DISTINCT p.property_id, p.address, p.city, p.state, p.zip, p.country, p.rent_income, p.recurring_expenses, un.unit_id, un.unit_num, un.rent, up.user_id FROM users u 
+            JOIN user_properties up ON u.user_id=$user_id
+            JOIN properties p ON p.property_id=up.property_id
+            JOIN units un ON un.property_id=up.property_id AND up.unit_id IS NULL AND un.unit_id NOT IN ($unit_str)";
+            $result=$this->db->query($sql);
+            //Return the result
+            return $result->result_array();
         }
-        //Take out the final comma
-        $unit_str = substr($unit_str, 0, -1);
-        //Select all the available properties and units
-        $sql="
-        SELECT DISTINCT p.property_id, p.address, p.city, p.state, p.zip, p.country, p.rent_income, p.recurring_expenses, un.unit_id, un.unit_num, un.rent, up.user_id FROM users u 
-        JOIN user_properties up ON u.user_id=$user_id
-        JOIN properties p ON p.property_id=up.property_id
-        JOIN units un ON un.property_id=up.property_id AND up.unit_id IS NULL AND un.unit_id NOT IN ($unit_str)";
-        $result=$this->db->query($sql);
-        //Return the result
-        return $result->result_array();
+        //If no units are occupied
+        else{
+            //Select all the properties and units
+            $sql="
+            SELECT DISTINCT p.property_id, p.address, p.city, p.state, p.zip, p.country, p.rent_income, p.recurring_expenses, un.unit_id, un.unit_num, un.rent, up.user_id FROM users u 
+            JOIN user_properties up ON u.user_id=$user_id
+            JOIN properties p ON p.property_id=up.property_id
+            JOIN units un ON un.property_id=up.property_id AND up.unit_id IS NULL AND un.unit_id";
+            $result=$this->db->query($sql);
+            //Return the result
+            return $result->result_array();
+        }
     }
     public function registerTenant(){
         $user_id=$this->session->userdata('user_id');
