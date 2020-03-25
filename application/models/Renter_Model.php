@@ -168,6 +168,15 @@ class Renter_Model extends CI_Model{
         $unit_rent = $property->row()->rent;
         $property_rental_income = $property->row()->rent_income;
 
+        //Setting the due date to the first of this month
+        $dueDate = new DateTime();
+        $duteDate = $dueDate->modify($dueDate->format("Y-m"));
+        $dueDate = $dueDate->format("Y-m-d h:m:s");
+
+        $sql = "INSERT INTO payments(user_id, unit_id, amount_paid, date_paid) VALUES('$user_id', '$unit_id', '0', '$dueDate')";
+        $result=$this->db->query($sql);
+
+        //Create relation between user, property, and unit
         $sql = "INSERT INTO user_properties(user_id, unit_id, property_id) VALUES('$user_id', '$unit_id', '$property_id')";
         $result=$this->db->query($sql);
         if ($result) {

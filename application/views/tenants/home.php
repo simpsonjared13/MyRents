@@ -17,7 +17,7 @@
 			// echo "<p>" . $currentDateTime->format("Y-m-d h:m:s") . "</p>";
 			?>
 			<h3>Next Rent Due Date</h3>
-			<?php //echo print_r($payments); ?>
+			<?php echo print_r($payments); ?>
 			<table>
 				<tr>
 					<th>Rent Due</th>
