@@ -1,13 +1,48 @@
 <?php
-//echo print_r($payments->result());
+echo print_r($payments->result());
 echo print_r($finances->result());
+$mortage_expenses = 0;
+$upkeep_expenses = 0;
+$mainenance_costs = 0;
+$income = 0;
+$profit = 0;
+//if($finances->num_rows() != 0){
+	foreach ($finances->result() as $row) {
+		$mortage_expenses+= $row->recurring_expenses;
+		$upkeep_expenses+= $row->upkeep_cost;
+	}
+//}
+//if($payments->num_rows() != 0){
+	foreach ($payments->result() as $row) {
+		$income += $row->amount_paid;
+	}
+//}
+
+
+$profit = $profit - $mortage_expenses - $upkeep_expenses - $mainenance_costs;
 
 ?>
 <div class="container">
 	<h1 style="text-align: center;">Finances</h1>
 	<div class="wrapper_1">
 		<div class="box_first_row">
-			<p>insert properties</p>
+			<h3>Year to Date Overview</h3>
+			<table>
+				<tr>
+					<th>Mortage Expenses</th>
+					<th>Upkeep Costs</th>
+					<th>Maintenance Costs</th>
+					<th>Income</th>
+					<th>Profit</th>
+				<tr>
+				<tr>
+					<td><?php echo $mortage_expenses ?></td>
+					<td><?php echo $upkeep_expenses ?></td>
+					<td><?php echo $mainenance_costs ?></td>
+					<td><?php echo $income ?></td>
+					<td><?php echo $profit ?></td>
+				</tr>
+			</table>
 		</div>
 
 
