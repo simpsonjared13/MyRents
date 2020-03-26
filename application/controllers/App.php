@@ -32,8 +32,6 @@ class App extends CI_Controller {
 		}
 		else if($result == "passwords error"){
 			echo "Passwords do not match";
-			//sleep(2);
-			//redirect("MyRents/Renter/register");
 		}
 		else{
 			echo "Successful Registration!";

@@ -6,18 +6,14 @@ $upkeep_expenses = 0;
 $mainenance_costs = 0;
 $income = 0;
 $profit = 0;
-//if($finances->num_rows() != 0){
 	foreach ($finances->result() as $row) {
 		$mortage_expenses+= $row->recurring_expenses;
 		$upkeep_expenses+= $row->upkeep_cost;
 	}
-//}
-//if($payments->num_rows() != 0){
+
 	foreach ($payments->result() as $row) {
 		$income += $row->amount_paid;
 	}
-//}
-
 
 $profit = $profit - $mortage_expenses - $upkeep_expenses - $mainenance_costs;
 
@@ -59,7 +55,8 @@ $profit = $profit - $mortage_expenses - $upkeep_expenses - $mainenance_costs;
 					<th>Amount Paid</th>
 					<th>Date Paid</th>
 				</tr>
-			<?php foreach ($payments->result() as $row) {
+			<?php
+				foreach ($payments->result() as $row) {
 				$date = new DateTime($row->date_paid);
 			?>
 				<tr>
@@ -71,7 +68,7 @@ $profit = $profit - $mortage_expenses - $upkeep_expenses - $mainenance_costs;
 				</tr>
 
 			<?php	
-			}
+				}
 			?>
 			</table>
 		</div>
