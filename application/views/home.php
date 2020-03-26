@@ -2,6 +2,7 @@
 	<div class="wrapper_1">
 		<div class="homepage_box_left">
 			<p>finances</p>
+			<?php echo print_r($finances); ?>
 			<table class="renter-table">
 				<tr>
 					<th>property_id</th>

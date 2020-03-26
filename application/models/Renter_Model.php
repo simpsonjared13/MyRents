@@ -33,6 +33,13 @@ class Renter_Model extends CI_Model{
         $result=$this->db->query($sql);
         return $result->result_array();
     }
+    public function get_homepage_finances(){
+        $user_id=$this->session->userdata('user_id');
+
+        $sql="SELECT p.property_id, sum(r.request_cost) as requests_cost, sum(p.rent_income) as rent_total, sum(p.upkeep_cost) as upkeep_total from requests r join user_properties up on up.user_id=$user_id join properties p on p.property_id=up.property_id group by p.property_id";
+        $result=$this->db->query($sql);
+        return $result->result_array();
+    }
     public function get_finances(){
         $user_id=$this->session->userdata('user_id');
 

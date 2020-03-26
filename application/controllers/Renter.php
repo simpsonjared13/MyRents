@@ -120,7 +120,7 @@ class Renter extends CI_Controller {
 			$data['properties']=$this->Renter_Model->get_properties();
 			$data['tenants']=$this->Renter_Model->get_tenants();
 			$data['requests']=$this->Renter_Model->get_requests();
-			$data['finances']=$this->Renter_Model->get_finances();
+			$data['finances']=$this->Renter_Model->get_homepage_finances();
 			$this->load->view('templates/header');
 			$this->load->view('templates/nav');
 			$this->load->view('home', $data);
