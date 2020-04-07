@@ -112,6 +112,7 @@ class Renter_Model extends CI_Model{
 
             $next_year = new DateTime($this_year->format("Y-m-d h:m:s"));
             $next_year = $next_year->modify("+1 year");
+            $next_year = $next_year->modify("-1 month");
             $next_year = $next_year->format("Y-m-d h:m:s"); 
 
             $this_year= $this_year->format("Y-m-d h:m:s");  
@@ -127,6 +128,7 @@ class Renter_Model extends CI_Model{
 
             $next_year = new DateTime($this_year->format("Y-m-d h:m:s"));
             $next_year = $next_year->modify("+1 year");
+            $next_year = $next_year->modify("-1 month");
             $next_year = $next_year->format("Y-m-d h:m:s"); 
 
             $this_year= $this_year->format("Y-m-d h:m:s"); 

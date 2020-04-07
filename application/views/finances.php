@@ -10,25 +10,20 @@ $profit = 0;
 		$mortage_expenses+= $row->recurring_expenses;
 		$upkeep_expenses+= $row->upkeep_cost;
 	}
-
+	//$mortage_expenses *= $payments->num_rows()
 	foreach ($payments->result() as $row) {
 		$income += $row->amount_paid;
 	}
 
-$profit = $profit - $mortage_expenses - $upkeep_expenses - $mainenance_costs;
 
-if($this->input->get('date') != null){
-	echo "not null";
-	var_dump($this->input->get('date'));
-}
-else{
-	echo "null";
-	var_dump($this->input->get('date'));
-}
+echo $payments->num_rows() ."<br>";
+$now = new DateTime();
 
 $this_year = new DateTime();
 $this_year= $this_year->format("Y"); 
 $this_year = new DateTime($this_year."-01-01 00:00:00");
+$months = $now->diff($this_year, TRUE);
+//$months = $months->format("m"); 
 
 $last_year = new DateTime($this_year->format("Y-m-d h:m:s"));
 $last_year = $last_year->modify("-1 year");
@@ -36,12 +31,21 @@ $last_year = $last_year->format("Y-m-d h:m:s");
 
 $next_year = new DateTime($this_year->format("Y-m-d h:m:s"));
 $next_year = $next_year->modify("+1 year");
+$next_year = $next_year->modify("-1 month");
 $next_year = $next_year->format("Y-m-d h:m:s"); 
 
 $this_year= $this_year->format("Y-m-d h:m:s"); 
 echo $this_year . "<br>";
 echo $last_year . "<br>";
 echo $next_year . "<br>";
+echo $months->m . "<br>";
+
+
+$mortage_expenses *= intval($months->m);
+$upkeep_expenses*= intval($months->m);
+
+
+$profit = $profit - $mortage_expenses - $upkeep_expenses - $mainenance_costs + $income;
 
 ?>
 <div class="container">
