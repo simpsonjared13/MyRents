@@ -66,8 +66,12 @@ class App extends CI_Controller {
 		else if($result == "The username and password entered are incorrect"){
 			echo $result;
 		}
-		else{
+		else if ($result == "Renter"){
 			redirect("Renter/home");
+		}
+		else{
+			var_dump($result->row());
+			var_dump($this->session->userdata());
 		}
 	}
 	private function validateLogin(){
@@ -79,6 +83,7 @@ class App extends CI_Controller {
 	        'email' => null,
 	        'phone' => null,
 	        "unit_id" => null,
+	        "date" => null,
 	        'password' => $this->input->post('password')
 	         );
 	    foreach ($users as $key => $value) {
@@ -100,6 +105,7 @@ class App extends CI_Controller {
 	                $users['last_name'] = $row1->last_name;
 	                $users['email'] = $row1->email;
 	                $users['phone'] = $row1->phone;
+	                $users['date'] = $row1->date;
 	                array_pop($users);
 	                $sql3 = "SELECT unit_id FROM user_properties WHERE user_id = '" . $row1->user_id . "'";
 	                $result3 = $this->db->query($sql3);

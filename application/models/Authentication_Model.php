@@ -104,12 +104,15 @@ class Authentication_Model extends CI_Model{
 
     }
     public function registerRentee(){
+        $date = new DateTime($this->input->post("date"));
+        $date= $date->format("Y-m-d h:m:s");
         $user_info = array(
             'first_name' => $this->input->post('first_name'),
             'last_name' => $this->input->post('last_name'),
             'username' => $this->input->post('username'),
             'email' => $this->input->post('email'),
             'phone' => $this->input->post('phone'),
+            'date' => $date,
             'password' => "123"//Temporary!
             //'password' => ""//Official
             );

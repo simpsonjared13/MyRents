@@ -15,6 +15,8 @@
 				<input type="text" name="username" placeholder="username" required>
 				<input type="text" name="email" placeholder="email" required>
 				<input type="text" name="phone" placeholder="203-987-6543">
+				Date Moved-In:<input type="date" name="date">
+
 			<?php
 			$previous_property_id = null;
 			$property_select_string = '';

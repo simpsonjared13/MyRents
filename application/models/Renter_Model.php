@@ -203,7 +203,7 @@ class Renter_Model extends CI_Model{
 
         //Setting the due date to the first of this month
         //Edit line below to set when tenant moved in
-        $dueDate = new DateTime("2010-1-1");
+        $dueDate = new DateTime($this->input->post("date"));
 
         // $duteDate = $dueDate->modify("-3 years");
         $duteDate = $dueDate->modify($dueDate->format("Y-m"));
