@@ -9,6 +9,7 @@
 				State:<input type="text" name="state">
 				Country:<input type="text" name="country">
 				Zip:<input type="text" name="zip">
+				Date Acquired:<input type="date" name="date">
 				Number of Units:<select id="units" name="num_units" onchange="unitsStuff()">
 			<?php
 				for($i = 0; $i <= 5; $i++){

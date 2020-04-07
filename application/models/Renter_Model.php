@@ -97,8 +97,13 @@ class Renter_Model extends CI_Model{
         $zip=$this->input->post("zip");
         $num_units=$this->input->post("num_units");
         $user_id = $this->session->userdata('user_id');
+        //return $this->input->post("date");
+        $date = new DateTime($this->input->post("date"));
+        // return $date->format("Y-m-d h:m:s");  
+        $date= $date->format("Y-m-d h:m:s");  
 
-        $sql="INSERT INTO properties(address, city, state, country, zip, num_units) VALUES('$address', '$city', '$state', '$country', '$zip', '$num_units')";
+
+        $sql="INSERT INTO properties(address, city, state, country, zip, num_units, date) VALUES('$address', '$city', '$state', '$country', '$zip', '$num_units', '$date')";
         $this->db->query($sql);
         $property_id = $this->db->insert_id();
 
