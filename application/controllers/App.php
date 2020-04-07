@@ -63,6 +63,9 @@ class App extends CI_Controller {
 		else if($result == "Tenant"){
 			redirect("Tenant/home");
 		}
+		else if($result == "The username and password entered are incorrect"){
+			echo $result;
+		}
 		else{
 			redirect("Renter/home");
 		}
@@ -85,7 +88,7 @@ class App extends CI_Controller {
 	    }
 	    $sql1 = "SELECT * FROM users WHERE username = '" . $users["username"] . "'";
 	    $result1 = $this->db->query($sql1);
-	    if($result1){
+	    if($result1->num_rows() > 0){
 	        $row1 = $result1->row();
 	        $sql2 = "SELECT hash FROM enpu WHERE user_id = '" . $row1->user_id . "'";
 	        $result2 = $this->db->query($sql2);
@@ -119,7 +122,7 @@ class App extends CI_Controller {
 	        }
 	    }
 	    else{
-	        return "No User";
+	        return "The username and password entered are incorrect";
 	    }
 	}
 
