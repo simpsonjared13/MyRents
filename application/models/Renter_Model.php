@@ -97,9 +97,7 @@ class Renter_Model extends CI_Model{
         $zip=$this->input->post("zip");
         $num_units=$this->input->post("num_units");
         $user_id = $this->session->userdata('user_id');
-        //return $this->input->post("date");
         $date = new DateTime($this->input->post("date"));
-        // return $date->format("Y-m-d h:m:s");  
         $date= $date->format("Y-m-d h:m:s");  
 
 
