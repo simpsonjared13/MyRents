@@ -35,7 +35,7 @@ class Renter extends CI_Controller {
 		$this->load->view('templates/footer');
 	}
 	public function finances(){
-		$data['payments']=$this->Renter_Model->get_payments();
+		$data['payments']=$this->Renter_Model->get_payments_by_year();
 		$data['finances']=$this->Renter_Model->get_finances();
 
 		$this->load->view('templates/header');

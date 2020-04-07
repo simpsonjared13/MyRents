@@ -1,6 +1,6 @@
 <?php
-echo print_r($payments->result());
-echo print_r($finances->result());
+//echo print_r($payments->result());
+//echo print_r($finances->result());
 $mortage_expenses = 0;
 $upkeep_expenses = 0;
 $mainenance_costs = 0;
@@ -17,12 +17,42 @@ $profit = 0;
 
 $profit = $profit - $mortage_expenses - $upkeep_expenses - $mainenance_costs;
 
+if($this->input->get('date') != null){
+	echo "not null";
+	var_dump($this->input->get('date'));
+}
+else{
+	echo "null";
+	var_dump($this->input->get('date'));
+}
+
+$this_year = new DateTime();
+$this_year= $this_year->format("Y"); 
+$this_year = new DateTime($this_year."-01-01 00:00:00");
+
+$last_year = new DateTime($this_year->format("Y-m-d h:m:s"));
+$last_year = $last_year->modify("-1 year");
+$last_year = $last_year->format("Y-m-d h:m:s"); 
+
+$next_year = new DateTime($this_year->format("Y-m-d h:m:s"));
+$next_year = $next_year->modify("+1 year");
+$next_year = $next_year->format("Y-m-d h:m:s"); 
+
+$this_year= $this_year->format("Y-m-d h:m:s"); 
+echo $this_year . "<br>";
+echo $last_year . "<br>";
+echo $next_year . "<br>";
+
 ?>
 <div class="container">
 	<h1 style="text-align: center;">Finances</h1>
 	<div class="wrapper_1">
 		<div class="box_first_row">
-			<h3>Year to Date Overview</h3>
+			<h3>Year to Date Overview</h3><Br>
+			<form action="finances" method="GET">
+				Change Year<input type="date" name="date"><br>
+				<button>Submit</button>
+			</form>
 			<table>
 				<tr>
 					<th>Mortage Expenses</th>

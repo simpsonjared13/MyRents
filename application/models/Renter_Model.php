@@ -52,6 +52,19 @@ class Renter_Model extends CI_Model{
 
     public function get_payments(){
         $user_id=$this->session->userdata('user_id');
+        $sql_date = "";
+        if($this->input->post('date') != null){
+            $this_year = new DateTime($this->input->post("date"));
+
+            $last_year = $this_year->modify("-1 year");
+            $last_year = $this_year->format("Y-m-d h:m:s"); 
+
+            $next_year = $this_year->modify("+1 year");
+            $next_year = $next_year->format("Y-m-d h:m:s"); 
+
+            $this_year= $this_year->format("Y-m-d h:m:s"); 
+            $sql_date = "AND pm.date_paid > '$last_year' AND pm.date_paid < '$next_year' ";
+        }
         $units = "SELECT u.unit_id FROM units u
             JOIN user_properties up ON up.property_id=u.property_id AND up.user_id = '$user_id'";
         $units=$this->db->query($units);
@@ -67,8 +80,9 @@ class Renter_Model extends CI_Model{
                 JOIN user_properties up ON up.user_id=pm.user_id AND up.unit_id IN ($unit_str)
                 JOIN users u ON up.user_id=u.user_id AND u.user_id !='$user_id' AND up.unit_id IN ($unit_str)
                 JOIN properties p ON up.property_id=p.property_id AND u.user_id !='$user_id' AND up.unit_id IN ($unit_str)
-                JOIN units ut ON up.unit_id=ut.unit_id
-                ORDER BY pm.date_paid, u.last_name DESC";
+                JOIN units ut ON up.unit_id=ut.unit_id ";
+            $sql.=$sql_date;
+            $sql.="ORDER BY pm.date_paid, u.last_name DESC";
             $result=$this->db->query($sql);
         }
         else{
@@ -76,7 +90,73 @@ class Renter_Model extends CI_Model{
                 JOIN user_properties up ON up.user_id=pm.user_id
                 JOIN users u ON up.user_id=u.user_id AND u.user_id !='$user_id'
                 JOIN properties p ON up.property_id=p.property_id AND u.user_id !='$user_id'
-                JOIN units ut ON up.unit_id=ut.unit_id
+                JOIN units ut ON up.unit_id=ut.unit_id ";
+            $sql.=$sql_date;
+            $sql.="ORDER BY pm.date_paid, u.last_name DESC";
+            $result=$this->db->query($sql);
+        }
+        
+        return $result;
+    }
+    public function get_payments_by_year(){
+        $user_id=$this->session->userdata('user_id');
+        $sql_date = "";
+        if($this->input->get('date') != null){
+            $this_year = new DateTime($this->input->get("date"));
+            $this_year= $this_year->format("Y"); 
+            $this_year = new DateTime($this_year."-01-01 00:00:00");
+
+            $last_year = new DateTime($this_year->format("Y-m-d h:m:s"));
+            $last_year = $last_year->modify("-1 year");
+            $last_year = $last_year->format("Y-m-d h:m:s"); 
+
+            $next_year = new DateTime($this_year->format("Y-m-d h:m:s"));
+            $next_year = $next_year->modify("+1 year");
+            $next_year = $next_year->format("Y-m-d h:m:s"); 
+
+            $this_year= $this_year->format("Y-m-d h:m:s");  
+        }
+        else{
+            $this_year = new DateTime();
+            $this_year= $this_year->format("Y"); 
+            $this_year = new DateTime($this_year."-01-01 00:00:00");
+
+            $last_year = new DateTime($this_year->format("Y-m-d h:m:s"));
+            $last_year = $last_year->modify("-1 year");
+            $last_year = $last_year->format("Y-m-d h:m:s"); 
+
+            $next_year = new DateTime($this_year->format("Y-m-d h:m:s"));
+            $next_year = $next_year->modify("+1 year");
+            $next_year = $next_year->format("Y-m-d h:m:s"); 
+
+            $this_year= $this_year->format("Y-m-d h:m:s"); 
+
+        }
+        $units = "SELECT u.unit_id FROM units u
+            JOIN user_properties up ON up.property_id=u.property_id AND up.user_id = '$user_id'";
+        $units=$this->db->query($units);
+
+        if($units->num_rows() > 0){
+            $unit_str = "";
+            foreach ($units->result() as $row) {
+                $unit_str .= $row->unit_id . ",";
+            }
+            $unit_str = substr($unit_str, 0, -1);
+
+            $sql="SELECT pm.amount_paid, pm.date_paid, u.first_name, u.last_name, p.address, p.city, ut.unit_num FROM payments pm
+                JOIN user_properties up ON up.user_id=pm.user_id AND up.unit_id IN ($unit_str) AND pm.date_paid BETWEEN '$this_year' AND '$next_year'
+                JOIN users u ON up.user_id=u.user_id AND u.user_id !='$user_id' AND up.unit_id IN ($unit_str) AND pm.date_paid BETWEEN '$this_year' AND '$next_year'
+                JOIN properties p ON up.property_id=p.property_id AND u.user_id !='$user_id' AND up.unit_id IN ($unit_str) AND pm.date_paid BETWEEN '$this_year' AND '$next_year'
+                JOIN units ut ON up.unit_id=ut.unit_id AND pm.date_paid BETWEEN '$this_year' AND '$next_year'
+                ORDER BY pm.date_paid, u.last_name DESC";
+            $result=$this->db->query($sql);
+        }
+        else{
+            $sql="SELECT pm.amount_paid, pm.date_paid, u.first_name, u.last_name, p.address, p.city, ut.unit_num FROM payments pm
+                JOIN user_properties up ON up.user_id=pm.user_id AND pm.date_paid > '$last_year' AND pm.date_paid < '$next_year'
+                JOIN users u ON up.user_id=u.user_id AND u.user_id !='$user_id' AND pm.date_paid > '$last_year' AND pm.date_paid < '$next_year'
+                JOIN properties p ON up.property_id=p.property_id AND u.user_id !='$user_id' AND pm.date_paid > '$last_year' AND pm.date_paid < '$next_year'
+                JOIN units ut ON up.unit_id=ut.unit_id AND pm.date_paid > '$last_year' AND pm.date_paid < '$next_year'
                 ORDER BY pm.date_paid, u.last_name DESC";
             $result=$this->db->query($sql);
         }
