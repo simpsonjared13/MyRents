@@ -18,8 +18,12 @@ $profit = 0;
 
 echo $payments->num_rows() ."<br>";
 $now = new DateTime();
-
-$this_year = new DateTime();
+if($this->input->get("date") != null){
+	$this_year = new DateTime($this->input->get("date"));
+}
+else{
+	$this_year = new DateTime();
+}
 $this_year= $this_year->format("Y"); 
 $this_year = new DateTime($this_year."-01-01 00:00:00");
 $months = $now->diff($this_year, TRUE);
@@ -34,8 +38,8 @@ $next_year = $next_year->modify("+1 year");
 $next_year = $next_year->modify("-1 month");
 $next_year = $next_year->format("Y-m-d h:m:s"); 
 
-$this_year= $this_year->format("Y-m-d h:m:s"); 
-echo $this_year . "<br>";
+//$this_year= $this_year->format("Y-m-d h:m:s"); 
+echo $this_year->format("Y-m-d h:m:s") . "<br>";
 echo $last_year . "<br>";
 echo $next_year . "<br>";
 echo $months->m . "<br>";
@@ -52,7 +56,7 @@ $profit = $profit - $mortage_expenses - $upkeep_expenses - $mainenance_costs + $
 	<h1 style="text-align: center;">Finances</h1>
 	<div class="wrapper_1">
 		<div class="box_first_row">
-			<h3>Year to Date Overview</h3><Br>
+			<h3>Year to Date Overview, <?php echo $this_year->format("Y"); ?></h3>
 			<form action="finances" method="GET">
 				Change Year<input type="date" name="date"><br>
 				<button>Submit</button>
