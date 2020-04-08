@@ -4,23 +4,23 @@ class Renter_Model extends CI_Model{
         $this->load->database();
     }
     public function get_properties(){
+        $user_id=$this->session->userdata('user_id');
         
-        $user=$this->session->userdata('username');
-        $sql5="select user_id from users where username='$user'";
-        $results=$this->db->query($sql5);
-        $row=$results->row_array();
-        $user_id=$row["user_id"];
-        
-        $sql1="SELECT DISTINCT p.property_id, p.address, p.city, p.state, p.zip, p.country, p.rent_income, p.recurring_expenses, p.num_units, p.upkeep_cost FROM users u JOIN user_properties up ON u.user_id=$user_id JOIN properties p ON p.property_id=up.property_id";
-        $result=$this->db->query($sql1);
+        $sql="SELECT DISTINCT p.property_id, p.address, p.city, p.state, p.zip, p.country, p.rent_income, p.recurring_expenses, p.num_units, p.upkeep_cost FROM users u 
+        JOIN user_properties up ON up.user_id=$user_id 
+        JOIN properties p ON p.property_id=up.property_id";
+        $result=$this->db->query($sql);
         return $result->result_array();
     }
     public function get_tenants(){
-        $sql2="SELECT u.user_id, u.first_name, u.last_name, u.phone, u.email, up.unit_id, p.address, p.city, up.property_id FROM users u
-        INNER JOIN user_properties up ON u.user_id=up.user_id AND up.unit_id IS NOT NULL
+        $user_id=$this->session->userdata('user_id');
+        $user_tenats = "SELECT property_id FROM user_properties WHERE user_id = $user_id";
+
+        $sql="SELECT u.user_id, u.first_name, u.last_name, u.phone, u.email, up.unit_id, p.address, p.city, up.property_id FROM users u
+        JOIN user_properties up ON up.user_id=u.user_id AND up.unit_id IS NOT NULL AND up.property_id IN ($user_tenats)
         JOIN properties p USING (property_id)";
-        $results=$this->db->query($sql2);
-        return $results->result_array();
+        $result=$this->db->query($sql);
+        return $result->result_array();
     }
     public function get_requests(){
         $user=$this->session->userdata('username');
@@ -250,7 +250,7 @@ class Renter_Model extends CI_Model{
             //Select all the available properties and units
             $sql="
             SELECT DISTINCT p.property_id, p.address, p.city, p.state, p.zip, p.country, p.rent_income, p.recurring_expenses, un.unit_id, un.unit_num, un.rent, up.user_id FROM users u 
-            JOIN user_properties up ON u.user_id=$user_id
+            JOIN user_properties up ON up.user_id=$user_id
             JOIN properties p ON p.property_id=up.property_id
             JOIN units un ON un.property_id=up.property_id AND up.unit_id IS NULL AND un.unit_id NOT IN ($unit_str)";
             $result=$this->db->query($sql);
