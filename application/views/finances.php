@@ -90,8 +90,6 @@ $profit = $profit - $mortage_expenses - $upkeep_expenses - $mainenance_costs + $
 			}
 		?>
 		</div>
-
-
 	</div>
 
 	<div class="wrapper_2">
