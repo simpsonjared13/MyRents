@@ -16,7 +16,7 @@ $profit = 0;
 	}
 
 
-echo $payments->num_rows() ."<br>";
+//echo $payments->num_rows() ."<br>";
 $now = new DateTime();
 if($this->input->get("date") != null){
 	$this_year = new DateTime($this->input->get("date"));
@@ -39,10 +39,10 @@ $next_year = $next_year->modify("-1 month");
 $next_year = $next_year->format("Y-m-d h:m:s"); 
 
 //$this_year= $this_year->format("Y-m-d h:m:s"); 
-echo $this_year->format("Y-m-d h:m:s") . "<br>";
-echo $last_year . "<br>";
-echo $next_year . "<br>";
-echo $months->m . "<br>";
+// echo $this_year->format("Y-m-d h:m:s") . "<br>";
+// echo $last_year . "<br>";
+// echo $next_year . "<br>";
+// echo $months->m . "<br>";
 
 
 $mortage_expenses *= intval($months->m);
@@ -61,6 +61,10 @@ $profit = $profit - $mortage_expenses - $upkeep_expenses - $mainenance_costs + $
 				Change Year<input type="date" name="date"><br>
 				<button>Submit</button>
 			</form>
+		<?php
+			if($payments->num_rows() > 0){
+
+		?>	
 			<table>
 				<tr>
 					<th>Mortage Expenses</th>
@@ -77,6 +81,14 @@ $profit = $profit - $mortage_expenses - $upkeep_expenses - $mainenance_costs + $
 					<td><?php echo $profit ?></td>
 				</tr>
 			</table>
+		<?php
+			}
+			else{
+			?>
+			<h3>You have no information from the year <?php echo $this_year->format("Y"); ?></h3>
+			<?php
+			}
+		?>
 		</div>
 
 
@@ -84,6 +96,10 @@ $profit = $profit - $mortage_expenses - $upkeep_expenses - $mainenance_costs + $
 
 	<div class="wrapper_2">
 		<div class="box_second_row">
+		<?php
+			if($payments->num_rows() > 0){
+
+		?>
 			<h3>View Year to Date Payments</h3>
 			<table>
 				<tr>
@@ -109,6 +125,14 @@ $profit = $profit - $mortage_expenses - $upkeep_expenses - $mainenance_costs + $
 				}
 			?>
 			</table>
+		<?php
+			}
+			else{
+		?>
+			<h3>You have no information from the year <?php echo $this_year->format("Y"); ?></h3>
+		<?php
+			}
+		?>
 		</div>
 
 	</div>
