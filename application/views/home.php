@@ -1,23 +1,61 @@
 <div class="container">
+<?php
+$mortage_expenses = 0;	$upkeep_expenses = 0;	$mainenance_costs = 0;	$income = 0;	$profit = 0;
+foreach ($finances->result() as $row) {
+	//Set initial monthly cost of upkeep and mortgage
+	$mortage_expenses+= $row->recurring_expenses;
+	$upkeep_expenses+= $row->upkeep_cost;
+}
+foreach ($payments->result() as $row) {
+	//Increase income for each rental payment by a tenant
+	$income += $row->amount_paid;
+}
+//Get the time of now
+$now = new DateTime();
+
+//Get the Jan 1st of this year
+$this_year = new DateTime();
+$this_year= $this_year->format("Y"); 
+$this_year = new DateTime($this_year."-01-01 00:00:00");
+//Get the difference in months of the start of the year and this current month
+$months = $now->diff($this_year, TRUE);
+//Set increment mortgage and upkeep expenses by the amount of monthes that have passed
+$mortage_expenses *= intval($months->m);
+$upkeep_expenses*= intval($months->m);
+//Set profit based on expenses and income
+$profit = $profit - $mortage_expenses - $upkeep_expenses - $mainenance_costs + $income;
+?>
 	<div class="wrapper_1">
 		<div class="homepage_box_left">
-			<p>finances</p>
-			<table class="renter-table">
+			<h3>Year to Date Overview, <?php echo $this_year->format("Y"); ?></h3>
+		<?php
+			if($payments->num_rows() > 0){
+
+		?>	
+			<table>
 				<tr>
-					<th>property_id</th>
-					<th>request_cost</th>
-					<th>rent_total</th>
-					<th>upkeep_cost</th>
+					<th>Mortage Expenses</th>
+					<th>Upkeep Costs</th>
+					<th>Maintenance Costs</th>
+					<th>Income</th>
+					<th>Profit</th>
+				<tr>
+				<tr>
+					<td><?php echo $mortage_expenses ?></td>
+					<td><?php echo $upkeep_expenses ?></td>
+					<td><?php echo $mainenance_costs ?></td>
+					<td><?php echo $income ?></td>
+					<td><?php echo $profit ?></td>
 				</tr>
-				<?php foreach($finances as $finance): ?>
-					<tr>
-						<td><?php echo $finance['property_id']; ?></td>
-						<td><?php echo $finance['requests_cost']; ?></td>
-						<td><?php echo $finance['rent_total']; ?></td>
-						<td><?php echo $finance['upkeep_total']; ?></td>
-					</tr>
-				<?php endforeach; ?>
 			</table>
+		<?php
+			}
+			else{
+		?>
+			<h3>You have no financial information from this year <?php echo $this_year->format("Y"); ?></h3>
+		<?php
+			}
+		?>
 		</div>
 
 
@@ -79,7 +117,7 @@
 		</div>
 
 		<div class="homepage_box_right">
-			<p>requests</p>
+			<p>active requests</p>
 			<table class="renter-table">
 				<tr>
 					<th>request_id</th>
@@ -96,7 +134,19 @@
 					</tr>
 				<?php endforeach; ?>
 			</table>
-
+			<p>Complete Request</p>
+			<form name="complete_request" method="POST" action="complete_request">
+				Select Request ID: <select id="request_select" name="request_select">
+					<option value="">Select Request</option>
+					<?php foreach($requests as $reqest): ?>
+						<option name="<?php echo $request['request_id']; ?>"><?php echo $request['request_id']; ?> </option>
+					<?php endforeach; ?>
+				</select>
+				<br>
+				Cost of Request: <input type="number" name="request_cost"></input>
+				<br>
+				<input type="submit" name="submit" value="Complete">
+			</form>
 		</div>
 	</div>
 </div>

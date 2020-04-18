@@ -1,5 +1,5 @@
 <?php
-//echo print_r($properties);
+//echo print_r($tenants);
 ?>
 <div class="container">
 	<h1 style="text-align: center;">Tenants</h1>
@@ -15,6 +15,8 @@
 				<input type="text" name="username" placeholder="username" required>
 				<input type="text" name="email" placeholder="email" required>
 				<input type="text" name="phone" placeholder="203-987-6543">
+				Date Moved-In:<input type="date" name="date">
+
 			<?php
 			$previous_property_id = null;
 			$property_select_string = '';
@@ -28,7 +30,7 @@
 					'<select name="property_id" id="property" onchange="changeUnits()">
 						<option  value="'. $properties[$key]['property_id'] .'">'.$properties[$key]['address'].' '.$properties[$key]['city'].'</option>';
 					$unit_select_string .= 
-					'<select name="select_unit_prop_id_'. $properties[$key]['property_id'] .'" id="unit_'. $properties[$key]['property_id'] .'" style="display:inline-block;">
+					'Unit Number: <select name="select_unit_prop_id_'. $properties[$key]['property_id'] .'" id="unit_'. $properties[$key]['property_id'] .'" style="display:inline-block;">
 						<option value="'. $properties[$key]['unit_id'] .'">'.$properties[$key]['unit_num'].'</option>';
 				}
 				//If the unit belongs to the same property
@@ -92,7 +94,12 @@
 						<td><?php echo $tenant['email']; ?></td>
 						<td><?php echo $tenant['address'] . " " . $tenant['city']; ?></td>
 						<td><?php echo $tenant['unit_id']; ?></td>
-
+						<form action="removeTenant" method="POST">
+							<input type="text" name="user_id" value="<?php echo $tenant['user_id']; ?>" hidden>
+							<input type="text" name="unit_id" value="<?php echo $tenant['unit_id']; ?>" hidden>
+							<input type="text" name="property_id" value="<?php echo $tenant['property_id']; ?>" hidden>
+							<td><input type="submit" name="submit" value="Remove Tenant"></td>
+						</form>
 					</tr>
 				<?php endforeach; ?>
 			</table>
