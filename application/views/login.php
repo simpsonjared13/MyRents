@@ -1,4 +1,4 @@
-<h1>MyRents Login</h1>
+<h1 id="loginh1">MyRents Login</h1>
 <div class="Register">
 	<form method="POST" action="doLogin">
 		<input type="text" name="username" placeholder="username" required><br>
