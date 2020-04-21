@@ -35,16 +35,16 @@
 			<p>view and update</p>
 			<table class="renter-table">
 				<tr>
-					<th>property_id</th>
-					<th>address</th>
-					<th>city</th>
-					<th>state</th>
-					<th>zip</th>
-					<th>country</th>
-					<th>rent_income</th>
-					<th>recurring_expenses</th>
-					<th>upkeep costs</th>
-					<th>Units</th>
+					<th>ID</th>
+					<th>Address</th>
+					<th>City</th>
+					<th>State</th>
+					<th>Zip</th>
+					<th>Country</th>
+					<th>Income</th>
+					<th>Expenses</th>
+					<th>Upkeep Cost</th>
+					<th>Number of Units</th>
 				</tr>
 				<?php foreach($properties as $property): ?>
 					<tr>

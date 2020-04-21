@@ -5,10 +5,10 @@
 			<p>Active Requests</p>
             <table class="renter-table">
 				<tr>
-					<th>request_id</th>
-					<th>unit_id</th>
-					<th>request_type</th>
-					<th>comments</th>
+					<th>ID</th>
+					<th>Unit</th>
+					<th>Type</th>
+					<th>Comments</th>
 				</tr>
 				<?php foreach($active_requests as $request): ?>
 					<tr>
@@ -39,12 +39,12 @@
 			<p>Completed Requests</p>
             <table class="renter-table">
 				<tr>
-					<th>request_id</th>
-					<th>unit_id</th>
-					<th>request_type</th>
-					<th>comments</th>
-                    <th>date completed</th>
-                    <th>request cost</th>
+					<th>ID</th>
+					<th>Unit</th>
+					<th>Type</th>
+					<th>Comments</th>
+                    <th>Date Completed</th>
+                    <th>Cost</th>
 				</tr>
 				<?php foreach($completed_requests as $request): ?>
 					<tr>
