@@ -45,8 +45,10 @@
 			<form method="POST" action="create_request">
 				Select Request Type:<select name="request_type">
 					<option value=""></option>
-					<option value="maintanance">General Maintance</option>
+					<option value="general">General Maintenance</option>
 					<option value="broken">Broken Appliance</option>
+					<option value="inspection">Inspection</option>
+					<option value="preventative">Preventative Maintenance</option>
 					<option value="other">Other</option>
 				</select>
 				Additional Comments: <input type="text" name="comments">

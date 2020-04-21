@@ -130,4 +130,14 @@ class Renter extends CI_Controller {
 			echo "FAILED";
 		}
 	}
+	public function requests(){
+		$data['active_requests']=$this->Renter_Model->get_requests();
+		$data['completed_requests']=$this->Renter_Model->get_completed_requests();
+
+		$this->load->view('templates/header');
+		$this->load->view('templates/nav');
+		$this->load->view('requests', $data);
+		$this->load->view('templates/footer');
+	}
+
 }

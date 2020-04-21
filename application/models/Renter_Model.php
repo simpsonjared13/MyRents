@@ -363,5 +363,16 @@ class Renter_Model extends CI_Model{
             return 0;
         }
     }
+    public function get_completed_requests(){
+        $user=$this->session->userdata('username');
+        $sql5="select distinct user_id from users where username='$user'";
+        $results=$this->db->query($sql5);
+        $row=$results->row_array();
+        $user_id=$row["user_id"];
+        
+        $sql="select distinct r.request_id, r.unit_id, r.request_type, r.comments, r.date_completed, r.request_cost FROM requests r join user_properties up on up.user_id=$user_id join properties p on p.property_id=up.property_id and r.date_completed is not null";
+        $result=$this->db->query($sql);
+        return $result->result_array();
+    }
 }
 ?>
