@@ -76,13 +76,13 @@
 			<p>view and update</p>
 			<table class="renter-table">
 				<tr>
-					<th>user_id</th>
-					<th>first_name</th>
-					<th>last_name</th>
-					<th>phone</th>
-					<th>email</th>
-					<th>property</th>
-					<th>unit_id</th>
+					<th>ID</th>
+					<th>First Name</th>
+					<th>Last Name</th>
+					<th>Telephone</th>
+					<th>Email</th>
+					<th>Property ID</th>
+					<th>Unit ID</th>
 
 				</tr>
 				<?php foreach($tenants as $tenant): ?>

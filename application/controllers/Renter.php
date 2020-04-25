@@ -28,7 +28,7 @@ class Renter extends CI_Controller {
 		$data['properties']=$this->Renter_Model->get_properties();
 		$data['tenants']=$this->Renter_Model->get_tenants();
 		$data['requests']=$this->Renter_Model->get_requests();
-		//$data['finances']=$this->Renter_Model->get_homepage_finances();
+		$data['request_costs']=$this->Renter_Model->get_request_costs_by_year();
 		$data['payments']=$this->Renter_Model->get_payments_by_year();
 		$data['finances']=$this->Renter_Model->get_finances();
 		$this->load->view('templates/header');
@@ -39,6 +39,7 @@ class Renter extends CI_Controller {
 	public function finances(){
 		$data['payments']=$this->Renter_Model->get_payments_by_year();
 		$data['finances']=$this->Renter_Model->get_finances();
+		$data['request_costs']=$this->Renter_Model->get_request_costs_by_year();
 
 		$this->load->view('templates/header');
 		$this->load->view('templates/nav');
@@ -130,4 +131,14 @@ class Renter extends CI_Controller {
 			echo "FAILED";
 		}
 	}
+	public function requests(){
+		$data['active_requests']=$this->Renter_Model->get_requests();
+		$data['completed_requests']=$this->Renter_Model->get_completed_requests();
+
+		$this->load->view('templates/header');
+		$this->load->view('templates/nav');
+		$this->load->view('requests', $data);
+		$this->load->view('templates/footer');
+	}
+
 }
