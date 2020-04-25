@@ -10,6 +10,10 @@ foreach ($payments->result() as $row) {
 	//Increase income for each rental payment by a tenant
 	$income += $row->amount_paid;
 }
+foreach ($request_costs->result() as $row) {
+	//Increase income for each rental payment by a tenant
+	$mainenance_costs += $row->request_cost;
+}
 //Get the time of now
 $now = new DateTime();
 

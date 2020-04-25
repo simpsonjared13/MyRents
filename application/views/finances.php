@@ -6,14 +6,18 @@ $upkeep_expenses = 0;
 $mainenance_costs = 0;
 $income = 0;
 $profit = 0;
-	foreach ($finances->result() as $row) {
-		$mortage_expenses+= $row->recurring_expenses;
-		$upkeep_expenses+= $row->upkeep_cost;
-	}
-	//$mortage_expenses *= $payments->num_rows()
-	foreach ($payments->result() as $row) {
-		$income += $row->amount_paid;
-	}
+foreach ($finances->result() as $row) {
+	$mortage_expenses+= $row->recurring_expenses;
+	$upkeep_expenses+= $row->upkeep_cost;
+}
+//$mortage_expenses *= $payments->num_rows()
+foreach ($payments->result() as $row) {
+	$income += $row->amount_paid;
+}
+foreach ($request_costs->result() as $row) {
+	//Increase income for each rental payment by a tenant
+	$mainenance_costs += $row->request_cost;
+}
 
 
 //echo $payments->num_rows() ."<br>";

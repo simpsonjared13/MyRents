@@ -23,13 +23,14 @@ class Renter_Model extends CI_Model{
         return $result->result_array();
     }
     public function get_requests(){
-        $user=$this->session->userdata('username');
-        $sql5="select distinct user_id from users where username='$user'";
-        $results=$this->db->query($sql5);
-        $row=$results->row_array();
-        $user_id=$row["user_id"];
+        $user_id=$this->session->userdata('user_id');
         
-        $sql="select distinct r.request_id, r.unit_id, r.request_type, r.comments, r.date_completed FROM requests r join user_properties up on up.user_id=$user_id join properties p on p.property_id=up.property_id and r.date_completed is null";
+        $sql="SELECT DISTINCT r.request_id, r.unit_id, r.request_type, r.comments, r.date_completed 
+        FROM users u
+        JOIN user_properties up on up.user_id=$user_id 
+        JOIN units un on un.property_id = up.property_id AND up.user_id=$user_id
+        JOIN requests r on r.unit_id = un.unit_id AND up.user_id=$user_id
+        JOIN properties p on p.property_id=up.property_id and r.date_completed is null";
         $result=$this->db->query($sql);
         return $result->result_array();
     }
@@ -48,6 +49,19 @@ class Renter_Model extends CI_Model{
         WHERE up.user_id='$user_id'";
         $result=$this->db->query($sql);
         return $result;
+    }
+    public function get_request_costs(){
+        $user_id=$this->session->userdata('user_id');
+        
+        $sql="SELECT DISTINCT r.request_id, r.unit_id, r.request_type, r.comments, r.date_completed, r.request_cost 
+        FROM users u
+        JOIN user_properties up on up.user_id=$user_id 
+        JOIN units un on un.property_id = up.property_id AND up.user_id=$user_id
+        JOIN requests r on r.unit_id = un.unit_id AND up.user_id=$user_id
+        JOIN properties p on p.property_id=up.property_id and r.date_completed IS NOT NULL";
+        $result=$this->db->query($sql);
+        return $result;
+
     }
 
     public function get_payments(){
@@ -164,6 +178,52 @@ class Renter_Model extends CI_Model{
         }
         
         return $result;
+    }
+    public function get_request_costs_by_year(){
+        $user_id=$this->session->userdata('user_id');
+        $sql_date = "";
+        if($this->input->get('date') != null){
+            $this_year = new DateTime($this->input->get("date"));
+            $this_year= $this_year->format("Y"); 
+            $this_year = new DateTime($this_year."-01-01 00:00:00");
+
+            $last_year = new DateTime($this_year->format("Y-m-d h:m:s"));
+            $last_year = $last_year->modify("-1 year");
+            $last_year = $last_year->format("Y-m-d h:m:s"); 
+
+            $next_year = new DateTime($this_year->format("Y-m-d h:m:s"));
+            $next_year = $next_year->modify("+1 year");
+            $next_year = $next_year->modify("-1 month");
+            $next_year = $next_year->format("Y-m-d h:m:s"); 
+
+            $this_year= $this_year->format("Y-m-d h:m:s");  
+        }
+        else{
+            $this_year = new DateTime();
+            $this_year= $this_year->format("Y"); 
+            $this_year = new DateTime($this_year."-01-01 00:00:00");
+
+            $last_year = new DateTime($this_year->format("Y-m-d h:m:s"));
+            $last_year = $last_year->modify("-1 year");
+            $last_year = $last_year->format("Y-m-d h:m:s"); 
+
+            $next_year = new DateTime($this_year->format("Y-m-d h:m:s"));
+            $next_year = $next_year->modify("+1 year");
+            $next_year = $next_year->modify("-1 month");
+            $next_year = $next_year->format("Y-m-d h:m:s"); 
+
+            $this_year= $this_year->format("Y-m-d h:m:s"); 
+        }
+        
+        $sql="SELECT DISTINCT r.request_id, r.unit_id, r.request_type, r.comments, r.date_completed, r.request_cost 
+        FROM users u
+        JOIN user_properties up on up.user_id=$user_id 
+        JOIN units un on un.property_id = up.property_id AND up.user_id=$user_id
+        JOIN requests r on r.unit_id = un.unit_id AND up.user_id=$user_id AND r.date_completed BETWEEN '$this_year' AND '$next_year'
+        JOIN properties p on p.property_id=up.property_id and r.date_completed IS NOT NULL";
+        $result=$this->db->query($sql);
+        return $result;
+
     }
     public function get_units(){
         $user_id=$this->session->userdata('user_id');
