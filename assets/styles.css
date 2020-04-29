@@ -9,9 +9,9 @@ html,body{
 .container{
   margin-top: 2%;
   height: 80%;
+  color: black;
 }
 #loginh1 {
-	margin-top: 15%;
 }
 h1{
 	text-align: center;
@@ -48,7 +48,7 @@ h1{
 /* Navbar container */
 .navbar {
   overflow: hidden;
-  background-color: #333;
+  background-color: black;
   font-family: Arial;
 }
 
@@ -130,7 +130,7 @@ h1{
 }
 
 .homepage_box_left {
-	background: #ffffff;
+	background: #ffc144;
 	border: solid;
 	padding: 10px;
 	margin-left: 5%;
@@ -143,7 +143,7 @@ h1{
 }
 
 .homepage_box_right{
-	background: #ffffff;
+	background: #ffc144;
 	border: solid;
 	margin-right: 5%; 
 	padding: 10px;
@@ -156,7 +156,7 @@ h1{
 }
 
 .box_first_row {
-	background: #cecece;
+	background: #ffc144;
 	border: solid;
 	padding: 10px;
 	margin-left: 5%;
@@ -171,7 +171,7 @@ h1{
 }
 
 .box_second_row{
-	background: #cecece;
+	background: #ffc144;
 	border: solid;
 	padding: 10px;
 	margin-left: 5%;
