@@ -67,13 +67,13 @@ $profit = $profit - $mortage_expenses - $upkeep_expenses - $mainenance_costs + $
 			<p>properties</p>
 			<table class="renter-table">
 				<tr>
-					<th>property_id</th>
-					<th>address</th>
-					<th>city</th>
-					<th>state</th>
-					<th>zip</th>
-					<th>rent_income</th>
-					<th>recurring_expenses</th>
+					<th>Property ID</th>
+					<th>Address</th>
+					<th>City</th>
+					<th>State</th>
+					<th>Zip</th>
+					<th>Rent Income</th>
+					<th>Recurring Expenses</th>
 				</tr>
 				<?php foreach($properties as $property): ?>
 					<tr>
@@ -95,13 +95,13 @@ $profit = $profit - $mortage_expenses - $upkeep_expenses - $mainenance_costs + $
 			<p>tenants</p>
 			<table class="renter-table">
 				<tr>
-					<th>user_id</th>
-					<th>first_name</th>
-					<th>last_name</th>
-					<th>phone</th>
-					<th>email</th>
-					<th>property</th>
-					<th>unit_id</th>
+					<th>User ID</th>
+					<th>First Name</th>
+					<th>Last Name</th>
+					<th>Telephone</th>
+					<th>Email</th>
+					<th>Property ID</th>
+					<th>Unit ID</th>
 
 				</tr>
 				<?php foreach($tenants as $tenant): ?>
@@ -124,10 +124,10 @@ $profit = $profit - $mortage_expenses - $upkeep_expenses - $mainenance_costs + $
 			<p>active requests</p>
 			<table class="renter-table">
 				<tr>
-					<th>request_id</th>
-					<th>unit_id</th>
-					<th>request_type</th>
-					<th>comments</th>
+					<th>Request ID</th>
+					<th>Unit ID</th>
+					<th>Request Type</th>
+					<th>Comments</th>
 				</tr>
 				<?php foreach($requests as $request): ?>
 					<tr>

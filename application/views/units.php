@@ -15,11 +15,11 @@
             </form>
 			<table class="renter-table">
 				<tr>
-					<th>property_id</th>
-					<th>unit_id</th>
-					<th>unit_num</th>
-					<th>rent</th>
-					<th>request_active</th>
+					<th>Property ID</th>
+					<th>Unit ID</th>
+					<th>Unit Number</th>
+					<th>Rent</th>
+					<th>Active Request</th>
 				</tr>
                 <?php
                     if(isset($_POST['submit'])){
