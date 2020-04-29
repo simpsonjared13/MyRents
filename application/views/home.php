@@ -149,7 +149,7 @@ $profit = $profit - $mortage_expenses - $upkeep_expenses - $mainenance_costs + $
 				<br>
 				Cost of Request: <input type="number" name="request_cost"></input>
 				<br>
-				<input type="submit" name="submit" value="Complete">
+				<input class="submit-button" type="submit" name="submit" value="Complete">
 			</form>
 		</div>
 	</div>

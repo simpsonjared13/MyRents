@@ -155,6 +155,18 @@ h1{
 	box-shadow: 5px 5px 10px black;
 }
 
+.submit-button {
+	background: darkslateblue;
+	color: white;
+	padding: 5px 8px;
+}
+
+.button {
+	background: darkslateblue;
+	color: white;
+	padding: 5px 8px;
+}
+
 .box_first_row {
 	background: #ffc144;
 	border: solid;

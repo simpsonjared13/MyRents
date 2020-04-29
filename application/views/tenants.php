@@ -64,7 +64,7 @@
 			echo "You have no properties. Please insert a property first.";
 		}
 			?>
-				<input type="submit" name="Submit">
+				<input class="submit-button" type="submit" name="Submit">
 			</form>
 		</div>
 
@@ -98,7 +98,7 @@
 							<input type="text" name="user_id" value="<?php echo $tenant['user_id']; ?>" hidden>
 							<input type="text" name="unit_id" value="<?php echo $tenant['unit_id']; ?>" hidden>
 							<input type="text" name="property_id" value="<?php echo $tenant['property_id']; ?>" hidden>
-							<td><input type="submit" name="submit" value="Remove Tenant"></td>
+							<td><input class="submit-button" type="submit" name="submit" value="Remove Tenant"></td>
 						</form>
 					</tr>
 				<?php endforeach; ?>

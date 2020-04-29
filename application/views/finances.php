@@ -63,7 +63,7 @@ $profit = $profit - $mortage_expenses - $upkeep_expenses - $mainenance_costs + $
 			<h3>Year to Date Overview, <?php echo $this_year->format("Y"); ?></h3>
 			<form action="finances" method="GET">
 				Change Year<input type="date" name="date"><br>
-				<button>Submit</button>
+				<button class="button"> Submit</button>
 			</form>
 		<?php
 			if($payments->num_rows() > 0){

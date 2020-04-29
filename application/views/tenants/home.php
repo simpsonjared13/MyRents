@@ -32,7 +32,7 @@
 				<input type="text" name="payment_id" value="<?php echo $lastPay["payment_id"] ?>" hidden>
 				<input type="text" name="rent" value="<?php echo $lastPay["rent"] ?>" hidden>
 				<input type="text" name="due_date" value="<?php echo $rentDue->format("Y-m-d h:m:s") ?>" hidden>
-				<input type="submit" name="submit" value="Proceed to Pay">
+				<input class="submit-button" type="submit" name="submit" value="Proceed to Pay">
 			</form>
 
 
@@ -52,9 +52,9 @@
 					<option value="other">Other</option>
 				</select>
 				Additional Comments: <input type="text" name="comments">
-				<input type="submit">
+				<input class="submit-button" type="submit">
 			</form>
-			<button onclick="view_requests()" id="click_requests">Click to View all Requests</button>
+			<button class="button" onclick="view_requests()" id="click_requests">Click to View all Requests</button>
 			<div id="tenant_requests"></div>
 		</div>
 	</div>

@@ -11,7 +11,7 @@
 			        <option value="<?php echo $property['property_id']; ?>"><?php echo $property['property_id']; ?> </option>
 		        <?php endforeach; ?>
 	        </select>
-            <input type="submit" name="submit" value="go" method="POST">
+            <input class="submit-button" type="submit" name="submit" value="go" method="POST">
             </form>
 			<table class="renter-table">
 				<tr>
@@ -53,7 +53,7 @@
 		        <?php endforeach; ?>
 	        </select>
 			Update Rent: <input type="number" name="rent">
-            <input type="submit" name="submit2" value="update">
+            <input class="submit-button" type="submit" name="submit2" value="update">
             </form>
 </div>
 </div>

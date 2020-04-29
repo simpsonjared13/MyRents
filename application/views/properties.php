@@ -23,7 +23,7 @@
 				</div>
 			</div>
 
-				<input type="submit" name="subimt">
+				<input class="submit-button" type="submit" name="subimt">
 			</form>
 		</div>
 
@@ -97,7 +97,7 @@
 	Upkeep Costs: <input type="text" name="upkeep_cost">
 	Rental Income: <input type="text" name="rent_income">
 	Recurring Expense: <input type="text" name="recurring_expenses">
-	<input type="submit" name="submit">
+	<input class="submit-button" type="submit" name="submit">
 </form>
 </div>
 </div>
