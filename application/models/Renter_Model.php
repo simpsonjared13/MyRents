@@ -227,7 +227,10 @@ class Renter_Model extends CI_Model{
     }
     public function get_units(){
         $user_id=$this->session->userdata('user_id');
-        $sql="SELECT DISTINCT un.unit_id, un.property_id, un.unit_num, un.rent, un.request_active FROM users u JOIN user_properties up ON u.user_id=$user_id JOIN units un ON un.property_id=up.property_id;";
+        $sql="SELECT DISTINCT un.unit_id, un.property_id, un.unit_num, un.rent, un.request_active 
+        FROM users u 
+        JOIN user_properties up ON up.user_id=$user_id 
+        JOIN units un ON un.property_id=up.property_id WHERE up.user_id=$user_id ;";
         $result=$this->db->query($sql);
         return $result->result_array();
     }
