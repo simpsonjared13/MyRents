@@ -2,7 +2,7 @@
 	<h1 style="text-align: center;">Properties</h1>
 	<div class="wrapper_1">
 		<div class="box_first_row">
-			<p>insert properties</p>
+			<h3>Insert Properties</h3>
 			<form Method="POST" action="insert_property">
 				Address:<input type="text" name="address">
 				City:<input type="text" name="city">
@@ -32,7 +32,7 @@
 
 	<div class="wrapper_2">
 		<div class="box_second_row">
-			<p>view and update</p>
+			<h3>View and Update</h3>
 			<table class="renter-table">
 				<tr>
 					<th>ID</th>
@@ -85,7 +85,7 @@
 </script>
 
 
-<h2>update property</h2>
+<h3>Update Property</h3>
 <form name="update_prop" method="POST" action="update_property">
 	Property ID: <select id="property_select" name="property_select">
 		<option value="">Select Property</option>

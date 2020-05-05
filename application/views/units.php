@@ -2,8 +2,7 @@
 	<h1 style="text-align: center;">Units</h1>
 	<div class="wrapper_1">
 		<div class="box_first_row">
-			<h3>filtering by property_id displays all units regardless of selection, i'll try to figure it out</h3>
-			<p>view units</p>
+			<h3>View Units</h3>
             <form method="POST">
             Select Property ID: <select id="property_select" name="property_id_select" method="POST">
 		    <option name="property_id">Select Property</option>
@@ -43,8 +42,7 @@
 	</div>
 	<div class="wrapper_2">
 		<div class="box_second_row">
-			<h2>wip</h2>
-			<p>update unit</p>
+			<h3>Update Unit</h3>
 			<form method="POST" action="update_unit">
             Select Unit ID: <select id="unit_select" name="unit_id" method="POST">
 		    <option name="">Select Unit</option>

@@ -15,7 +15,7 @@
 		<div class="box_second_row">
 			<h3>View Payments</h3>
 			<?php //echo print_r($payments->result()); ?>
-			<table>
+			<table class="renter-table">
 				<tr>
 					<th>Date Paid</th>
 					<th>Amount Paid</th>

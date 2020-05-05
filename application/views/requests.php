@@ -2,7 +2,7 @@
 	<h1 style="text-align: center;">Requests</h1>
 	<div class="wrapper_1">
 		<div class="box_first_row">
-			<p>Active Requests</p>
+			<h3>Active Requests</h3>
             <table class="renter-table">
 				<tr>
 					<th>ID</th>
@@ -36,7 +36,7 @@
 	</div>
 	<div class="wrapper_2">
 		<div class="box_second_row">
-			<p>Completed Requests</p>
+			<h3>Completed Requests</h3>
             <table class="renter-table">
 				<tr>
 					<th>ID</th>

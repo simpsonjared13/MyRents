@@ -64,7 +64,7 @@ $profit = $profit - $mortage_expenses - $upkeep_expenses - $mainenance_costs + $
 
 
 		<div class="homepage_box_right">
-			<p>properties</p>
+			<h3>Properties</h3>
 			<table class="renter-table">
 				<tr>
 					<th>Property ID</th>
@@ -92,7 +92,7 @@ $profit = $profit - $mortage_expenses - $upkeep_expenses - $mainenance_costs + $
 
 	<div class="wrapper_2">
 		<div class="homepage_box_left">
-			<p>tenants</p>
+			<h3>Tenants</h3>
 			<table class="renter-table">
 				<tr>
 					<th>User ID</th>
@@ -121,7 +121,7 @@ $profit = $profit - $mortage_expenses - $upkeep_expenses - $mainenance_costs + $
 		</div>
 
 		<div class="homepage_box_right">
-			<p>active requests</p>
+			<h3>Active Requests</h3>
 			<table class="renter-table">
 				<tr>
 					<th>Request ID</th>

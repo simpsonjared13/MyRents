@@ -18,7 +18,7 @@
 			?>
 			<h3>Next Rent Due Date</h3>
 			<?php //echo print_r($payments); ?>
-			<table>
+			<table class="renter-table">
 				<tr>
 					<th>Rent Due</th>
 					<th>Date Due</th>

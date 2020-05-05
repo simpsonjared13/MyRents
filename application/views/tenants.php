@@ -73,7 +73,7 @@
 
 	<div class="wrapper_2">
 		<div class="box_second_row">
-			<p>view and update</p>
+			<h3>View and Update</h3>
 			<table class="renter-table">
 				<tr>
 					<th>ID</th>
@@ -81,6 +81,7 @@
 					<th>Last Name</th>
 					<th>Telephone</th>
 					<th>Email</th>
+					<th>Address</th>
 					<th>Property ID</th>
 					<th>Unit ID</th>
 
@@ -93,6 +94,7 @@
 						<td><?php echo $tenant['phone']; ?></td>
 						<td><?php echo $tenant['email']; ?></td>
 						<td><?php echo $tenant['address'] . " " . $tenant['city']; ?></td>
+						<td><?php echo $tenant['property_id']; ?></td>
 						<td><?php echo $tenant['unit_id']; ?></td>
 						<form action="removeTenant" method="POST">
 							<input type="text" name="user_id" value="<?php echo $tenant['user_id']; ?>" hidden>

@@ -69,7 +69,7 @@ $profit = $profit - $mortage_expenses - $upkeep_expenses - $mainenance_costs + $
 			if($payments->num_rows() > 0){
 
 		?>	
-			<table>
+			<table class="renter-table">
 				<tr>
 					<th>Mortage Expenses</th>
 					<th>Upkeep Costs</th>
@@ -103,7 +103,7 @@ $profit = $profit - $mortage_expenses - $upkeep_expenses - $mainenance_costs + $
 
 		?>
 			<h3>View Year to Date Payments</h3>
-			<table>
+			<table class="renter-table">
 				<tr>
 					<th>Tenant Name</th>
 					<th>Property</th>

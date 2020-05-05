@@ -195,3 +195,35 @@ h1{
 	border-radius: 10px;
 	box-shadow: 5px 5px 10px black;
 }
+
+.renter-table {
+	border: 1px solid #FFFFFF;
+	border-collapse: collapse;
+  }
+  .renter-table td, th {
+	border: 2px solid black;
+  }
+  .renter-table tr:nth-child(even) {
+	background:darkgray;
+  }
+  .renter-table tr:nth-child(odd) {
+	background:white;
+  }
+
+  .renter-table thead {
+	background: #0B6FA4;
+	border-bottom: 5px solid #FFFFFF;
+  }
+  .renter-table thead th {
+	font-weight: bold;
+	color: #FFFFFF;
+	text-align: center;
+	border-left: 2px solid #FFFFFF;
+  }
+  .renter-table thead th:first-child {
+	border-left: none;
+  }
+  
+  .renter-table tfoot td {
+	font-size: 14px;
+  }
