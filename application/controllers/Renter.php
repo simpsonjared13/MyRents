@@ -107,7 +107,7 @@ class Renter extends CI_Controller {
 	public function complete_request(){
 		$result = $this->Renter_Model->complete_request();
 		if($result == 1){
-			redirect('Renter/home');
+			redirect('Renter/requests');
 			}
 		else{
 			echo "FAILED";
