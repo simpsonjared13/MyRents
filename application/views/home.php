@@ -36,7 +36,7 @@ $profit = $profit - $mortage_expenses - $upkeep_expenses - $mainenance_costs + $
 			if($payments->num_rows() > 0){
 
 		?>	
-			<table>
+			<table class="renter-table">
 				<tr>
 					<th>Mortage Expenses</th>
 					<th>Upkeep Costs</th>
