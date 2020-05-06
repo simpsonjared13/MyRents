@@ -100,7 +100,7 @@ $profit = $profit - $mortage_expenses - $upkeep_expenses - $mainenance_costs + $
 					<th>Last Name</th>
 					<th>Telephone</th>
 					<th>Email</th>
-					<th>Property ID</th>
+					<th>Property Address</th>
 					<th>Unit ID</th>
 
 				</tr>
@@ -138,11 +138,11 @@ $profit = $profit - $mortage_expenses - $upkeep_expenses - $mainenance_costs + $
 					</tr>
 				<?php endforeach; ?>
 			</table>
-			<p>Complete Request</p>
+			<h4>Complete Request</h4>
 			<form name="complete_request" method="POST" action="complete_request">
 				Select Request ID: <select id="request_select" name="request_select">
 					<option value="">Select Request</option>
-					<?php foreach($requests as $reqest): ?>
+					<?php foreach($requests as $request): ?>
 						<option name="<?php echo $request['request_id']; ?>"><?php echo $request['request_id']; ?> </option>
 					<?php endforeach; ?>
 				</select>

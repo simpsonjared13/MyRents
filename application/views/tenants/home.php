@@ -40,8 +40,7 @@
 
 
 		<div class="homepage_box_right">
-			<p>Requests</p>
-			<p>New Request</p>
+			<h3>Make Request</h3>
 			<form method="POST" action="create_request">
 				Select Request Type:<select name="request_type">
 					<option value=""></option>
@@ -51,6 +50,7 @@
 					<option value="preventative">Preventative Maintenance</option>
 					<option value="other">Other</option>
 				</select>
+				<br>
 				Additional Comments: <input type="text" name="comments">
 				<input class="submit-button" type="submit">
 			</form>
@@ -61,8 +61,8 @@
 <script type="text/javascript">
 	function view_requests(){
 		var x = document.getElementById("tenant_requests");
-		var table_data="<table>\
-		<tr><th>request_type</th> <th>comments</th> <th>date_completed</th></tr>\
+		var table_data="<table class='renter-table'>\
+		<tr><th>Request Type</th> <th>Comments</th> <th>Date Completed</th></tr>\
 		<?php foreach($requests as $request): ?>\
 					<tr>\
 						<td><?php echo $request['request_type']; ?></td>\
