@@ -202,6 +202,7 @@ h1{
   }
   .renter-table td, th {
 	border: 2px solid black;
+	padding: 3px;
   }
   .renter-table tr:nth-child(even) {
 	background:darkgray;
