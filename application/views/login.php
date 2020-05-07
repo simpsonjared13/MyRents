@@ -7,6 +7,6 @@
 	</form>
 	<br><br><br><br><br><br><br>
 	<div class="Link">
-		<a href="register">Register Here</a>
+		<a style="color: white" href="register">Register Here</a>
 	</div>
 </div>
